@@ -52,6 +52,13 @@
   margin: 0.7rem 0;
 }
 
+.announce-rotator {
+  width: 100px;
+  display: flex;
+  margin-top: -7rem;
+  margin-left: 40rem;
+}
+
 .punbb #pun-main .user-avatar {
   height: auto;
   align-items: center;
@@ -1439,6 +1446,7 @@ span.bubble:after {
   background: transparent;
   position: absolute;
   z-index: 2;
+  margin-top: 2px;
   margin-left: 8px;
   display: inline-block;
 }
@@ -1455,6 +1463,7 @@ span.bubble:after {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: "\e976";
+  color: var(--gradient-text-color2);
 }
 @media (max-width: 767.98px) {
   #pun-navlinks ul li#navlogout #New-exit {
@@ -5093,7 +5102,7 @@ a.pla:hover {
   height: var(--announce-height);
   display: grid;
   grid-template-areas: "announce-links announce-logo announce-news" "announce-top announce-top announce-news" "announce-posts announce-posts announce-rehab";
-  grid-template-columns: 150px 460px auto;
+  grid-template-columns: 150px 460px 325px;
   grid-template-rows: 130px 64px auto;
   background: var(--announce-bg);
   text-transform: uppercase;
@@ -5275,7 +5284,79 @@ a.pla:hover {
 .announce-news {
   grid-area: announce-news;
   align-content: flex-end;
+  padding-bottom: 24px;
+  padding-right: var(--pun-padding);
+  max-width: 325px;
 }
+
+.announce-rehab {
+  grid-area: announce-rehab;
+  align-content: flex-start;
+  margin-right: -100px;
+  margin-left: 120px;
+}
+
+.announce-rehab .rehab {
+  width: 325px;
+  height: 60px;
+}
+
+.reh {
+  display: inline-block;
+  height: 55px;
+  width: 55px;
+}
+
+#reh_1 {
+  background: url(https://forumstatic.ru/files/0012/04/67/60591.png) no-repeat
+    0px 0px;
+}
+
+#reh_2 {
+  background: url(https://forumstatic.ru/files/0012/04/67/60591.png) no-repeat -64px
+    0px;
+}
+
+#reh_3 {
+  background: url(https://forumstatic.ru/files/0012/04/67/60591.png) no-repeat -128px
+    0px;
+}
+
+#reh_4 {
+  background: url(https://forumstatic.ru/files/0012/04/67/60591.png) no-repeat -192px
+    0px;
+}
+
+#reh_5 {
+  background: url(https://forumstatic.ru/files/0012/04/67/60591.png) no-repeat -256px
+    0px;
+}
+
+#reh_1:hover {
+  background: url(https://forumstatic.ru/files/0012/04/67/19209.png) no-repeat
+    0px 0px;
+}
+
+#reh_2:hover {
+  background: url(https://forumstatic.ru/files/0012/04/67/19209.png) no-repeat -64px
+    0px;
+}
+
+#reh_3:hover {
+  background: url(https://forumstatic.ru/files/0012/04/67/19209.png) no-repeat -128px
+    0px;
+}
+
+#reh_4:hover {
+  background: url(https://forumstatic.ru/files/0012/04/67/19209.png) no-repeat -192px
+    0px;
+}
+
+#reh_5:hover {
+  background: url(https://forumstatic.ru/files/0012/04/67/19209.png) no-repeat -256px
+    0px;
+}
+
 @media (max-width: 991.98px) {
   .announce-news {
     align-content: center;
@@ -5290,11 +5371,6 @@ a.pla:hover {
   text-align: right;
   font-size: 15px;
 }
-.announce-news .news-wrapper {
-  padding-bottom: 24px;
-  padding-right: var(--pun-padding);
-  max-width: 325px;
-}
 .announce-news .news-text {
   border-radius: 8px;
   background: color-mix(
@@ -5305,64 +5381,15 @@ a.pla:hover {
   color: var(--main-color);
   padding: 10px;
   font-size: 13px;
-  line-height: 16px;
   hyphens: auto;
   text-transform: none;
+  line-height: 16px;
   font-family: var(--base-font);
 }
+
 .announce-news .news-text a {
   font-weight: bold;
   color: var(--common-link-color);
-}
-.announce-rehab {
-  --sprite: url("https://forumstatic.ru/files/0012/04/67/60591.png");
-  --sprite-hover: url("https://forumstatic.ru/files/0012/04/67/19209.png");
-  grid-area: announce-rehab;
-  justify-items: flex-end;
-  padding-right: 17px;
-}
-@media (max-width: 991.98px) {
-  .announce-rehab {
-    display: none;
-  }
-}
-.announce-rehab .rehab {
-  height: 60px;
-}
-.announce-rehab .reh {
-  display: inline-block;
-  height: 55px;
-  aspect-ratio: 1;
-}
-.announce-rehab #reh_1 {
-  background: var(--sprite) no-repeat 0px 0;
-}
-.announce-rehab #reh_1:hover {
-  background: var(--sprite-hover) no-repeat 0px 0;
-}
-.announce-rehab #reh_2 {
-  background: var(--sprite) no-repeat -64px 0;
-}
-.announce-rehab #reh_2:hover {
-  background: var(--sprite-hover) no-repeat -64px 0;
-}
-.announce-rehab #reh_3 {
-  background: var(--sprite) no-repeat -128px 0;
-}
-.announce-rehab #reh_3:hover {
-  background: var(--sprite-hover) no-repeat -128px 0;
-}
-.announce-rehab #reh_4 {
-  background: var(--sprite) no-repeat -192px 0;
-}
-.announce-rehab #reh_4:hover {
-  background: var(--sprite-hover) no-repeat -192px 0;
-}
-.announce-rehab #reh_5 {
-  background: var(--sprite) no-repeat -256px 0;
-}
-.announce-rehab #reh_5:hover {
-  background: var(--sprite-hover) no-repeat -256px 0;
 }
 
 .act-content {
@@ -5452,9 +5479,6 @@ a.pla:hover {
   text-transform: uppercase;
   font-size: 11px;
   color: var(--action-box-header-color);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 @media (max-width: 767.98px) {
   .act-content .who,
@@ -6279,10 +6303,10 @@ div.hvStickerPackModal .hvStickerPackModalTabs .hvStickerPackModalTab.active {
 }
 #navlogout #form-login {
   top: 12px;
-  margin-left: var(--announce-padding);
+  margin-left: -30px;
   margin-right: 0px;
-  right: 0;
-  transform: translateX(-100%);
+  right: 0px;
+  transform: translateX(-50%);
 }
 @media (max-width: 767.98px) {
   #pun-navlinks #form-login {
@@ -6601,22 +6625,4 @@ i#tuser:before {
 
 #statistic-other {
   display: none;
-}
-
-.but_why {
-  position: absolute;
-  right: 20px;
-  margin-top: -22px;
-  opacity: 0.8;
-  transition: 1s;
-}
-
-.but_why:hover {
-  opacity: 1;
-  transition: 1s;
-}
-
-.but_why a {
-  text-transform: lowercase;
-  font-size: 10px;
 }

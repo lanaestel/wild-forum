@@ -1,3 +1,189 @@
+<div id="Myawrd" style="display: none">
+  <!--
+  =================================================
+  //НОМЕР НАГРАДЫ    // ЗА ЧТО    // CCЫЛКА НА КАРТИНКУ
+  //=================================================-->
+
+  <p>1,Посадил дерево,https://upforme.ru/uploads/0012/04/67/10/755433.png</p>
+  <p>2,Вырастил лес,https://upforme.ru/uploads/0012/04/67/10/426606.png</p>
+  <p>3,Туман войны,https://upforme.ru/uploads/0012/04/67/10/527259.png</p>
+  <p>4,Говорящие грибы,https://upforme.ru/uploads/0012/04/67/10/557746.png</p>
+  <p>5,НЕговорящие грибы,https://upforme.ru/uploads/0012/04/67/10/557746.png</p>
+</div>
+<script type="text/javascript">
+  var NumPole = 5; //Номер доп поля c наградками;
+  var listMedal = [];
+  $("#Myawrd p").each(function (j) {
+    listMedal[j] = [];
+    listMedal[j] = $(this).html().split(",");
+  });
+
+  var NamFld = ".pa-fld" + NumPole;
+  //var FlugIm= '<img width=51 class=Flug src="http://savepic.org/1911734.png" />';
+  var FlugIm = "";
+  var awSTrt = '<span class=tooltip4><img width="23" class=awards src="';
+  $("div.post-author " + NamFld).each(function () {
+    if ($(this).html() != null) {
+      var L = $(this)
+        .html()
+        .replace(/^.+:(?:[\s]|<br>)/gi, "");
+      var L0 = $(this)
+        .html()
+        .replace(/^(.+:)[\s\S]*$/gim, "$1");
+      $(this).html(L0);
+      var Thisaw = L.split(",");
+      for (j = 0; j < Thisaw.length; j++) {
+        Dp = "";
+        var x = Thisaw[j];
+        x = x.replace(/(\d+)#.+$/gim, "$1");
+        Dp = Thisaw[j].replace(x, "").replace(/^#/i, "");
+        for (i = 0; i < listMedal.length - 1; i++) {
+          //alert(Thisaw[j]+","+listMedal[i][0])
+          if (x == listMedal[i][0]) {
+            L =
+              awSTrt +
+              listMedal[i][2] +
+              '"><span>' +
+              listMedal[i][1] +
+              " " +
+              Dp +
+              "<br>" +
+              FlugIm +
+              "</span></span>";
+            $(this).append(L);
+            break;
+          }
+        }
+      }
+    }
+  });
+</script>
+
+<script>
+  document.querySelectorAll(".pa-fld5").forEach((el) => {
+    const firstChild = el.firstChild;
+    if (firstChild && firstChild.nodeType === Node.TEXT_NODE) {
+      firstChild.textContent = "";
+    }
+  });
+</script>
+
+<script>
+  ReactionsPlugin.setConfig({
+    includeCategories: ["people", "foods"],
+    elemSelector: ".post-rating",
+    includeForumCategoryIds: [1, 2],
+  });
+</script>
+
+<!-- Ссылка на авторский пост в цитате // v.3 © Alex_63 -->
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentTopicId = Number(urlParams.get("id"));
+    const titleSpan = document.querySelector("#pun-main h1 span");
+    const isSilent =
+      titleSpan && /^твиттер\s+#\d+$/i.test(titleSpan.textContent.trim());
+
+    // Переопределяем поведение кнопки цитирования
+    if (isSilent) {
+      // Находим все кнопки цитирования
+      document
+        .querySelectorAll("#pun-viewtopic .pl-quote > a")
+        .forEach((link) => {
+          link.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            const postEl = this.closest(".post");
+            let text;
+
+            // Проверяем, выделил ли пользователь часть текста
+            const selection = window.getSelection();
+            if (
+              selection &&
+              selection.rangeCount > 0 &&
+              postEl.contains(selection.anchorNode) &&
+              postEl.contains(selection.focusNode)
+            ) {
+              text = selection.toString().trim();
+            }
+
+            // Если выделения нет — берём весь текст поста
+            if (!text) {
+              text = postEl.querySelector(".post-content").innerText.trim();
+            }
+
+            const textarea = document.querySelector("#main-reply");
+            if (textarea) {
+              textarea.value = `[block=silent-quote]${text}[/block]\n\n`;
+              textarea.focus();
+            }
+          });
+        });
+    } else {
+      // Обычная логика вставки ID в ссылку quote
+      $("#pun-viewtopic .pl-quote>a").each(function () {
+        $(this).attr(
+          "href",
+          $(this)
+            .attr("href")
+            .replace("('", "('#" + $(this).parents(".post").attr("id") + ",")
+        );
+      });
+    }
+
+    // cite внутри уже вставленных цитат
+    $('.quote-box>cite:contains("#")').each(function () {
+      const cntq = $(this).text();
+      const pid = cntq.split(",")[0];
+      const lnkq = '<a class="qc-post-link" href="';
+
+      if (isSilent) {
+        $(this).remove();
+      } else {
+        if ($(".post" + pid).length) {
+          $(this).html(lnkq + pid + '">' + cntq.split(",")[1] + "</a>");
+        } else {
+          $(this).html(
+            lnkq +
+              "/viewtopic.php?pid=" +
+              pid.split("#p")[1] +
+              pid +
+              '">' +
+              cntq.split(",")[1] +
+              "</a>"
+          );
+        }
+      }
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  function showNoAccessMessage(title) {
+    var hSt = "<h1><span>Информация</span></h1>";
+    var hCn = '<div class="info"><div class="container">';
+    hCn += "Вы не имеете прав для доступа к этой теме.";
+    hCn += "</div></div>";
+    var crCnt = ' »&nbsp;<a href="/">' + title + "</a> »&nbsp;Информация";
+    document.title = title;
+    $("#pun-main").html(hSt + hCn);
+    $(".crumbs").html(crCnt);
+  }
+
+  function hideIfMarkedByClass(userArr) {
+    if ($.inArray(UserID, userArr) !== -1) {
+      if ($("#pun-viewtopic").length && $(".hide-topic").length > 0) {
+        var txt = $("#pun-title h1").text();
+        showNoAccessMessage(txt);
+      }
+    }
+  }
+
+  // Настрой пользователей, которым нельзя видеть темы с .hide-topic
+  hideIfMarkedByClass([9]);
+</script>
+
 <!--- new -->
 <script>
   $(".post-author").each(function () {
@@ -88,36 +274,6 @@
         category: "Wild",
       },
       {
-        id: "_snek",
-        url: "https://upforme.ru/uploads/001b/ec/ce/267/777479.png",
-        category: "Wild",
-      },
-      {
-        id: "_butf",
-        url: "https://upforme.ru/uploads/001b/ec/ce/267/79648.png",
-        category: "Wild",
-      },
-      {
-        id: "_peng",
-        url: "https://upforme.ru/uploads/001b/ec/ce/267/50560.png",
-        category: "Wild",
-      },
-      {
-        id: "_cher",
-        url: "https://upforme.ru/uploads/001b/ec/ce/267/939414.png",
-        category: "Wild",
-      },
-      {
-        id: "_alpaca",
-        url: "https://upforme.ru/uploads/001b/ec/ce/267/486599.png",
-        category: "Wild",
-      },
-      {
-        id: "_golub",
-        url: "https://upforme.ru/uploads/001b/ec/ce/267/840516.png",
-        category: "Wild",
-      },
-      {
         id: "_dogge",
         url: "https://forum4.ru/uploads/001b/ec/ce/267/86344.png",
         category: "Personal",
@@ -136,266 +292,6 @@
         id: "_hungup",
         url: "https://forum4.ru/uploads/001b/ec/ce/267/603012.png",
         category: "Personal",
-      },
-      {
-        id: "_fiiiiine",
-        url: "https://forumstatic.ru/files/001b/ec/ce/15038.png",
-        category: "Personal",
-      },
-      {
-        id: "_cat1",
-        url: "https://upforme.ru/uploads/0013/63/cd/2/773045.png",
-        category: "Personal",
-      },
-      {
-        id: "_doggo",
-        url: "https://upforme.ru/uploads/0013/63/cd/2/620369.png",
-        category: "Personal",
-      },
-      {
-        id: "_cat2",
-        url: "https://upforme.ru/uploads/0013/63/cd/2/503795.png",
-        category: "Personal",
-      },
-      {
-        id: "_cat3",
-        url: "https://upforme.ru/uploads/0013/63/cd/2/627617.png",
-        category: "Personal",
-      },
-      {
-        id: "_cutie1",
-        url: "https://forumstatic.ru/files/0013/b7/c4/19804.gif",
-        category: "Cutie",
-      },
-      {
-        id: "_cutie2",
-        url: "https://forumstatic.ru/files/0013/b7/c4/53278.gif",
-        category: "Cutie",
-      },
-      {
-        id: "_cutie3",
-        url: "https://forumstatic.ru/files/0013/b7/c4/27512.gif",
-        category: "Cutie",
-      },
-      {
-        id: "_cutie4",
-        url: "https://forumstatic.ru/files/0013/b7/c4/99426.gif",
-        category: "Cutie",
-      },
-      {
-        id: "_cutie5",
-        url: "https://forumstatic.ru/files/0013/b7/c4/28305.gif",
-        category: "Cutie",
-      },
-      {
-        id: "_cutie6",
-        url: "https://forumstatic.ru/files/0013/b7/c4/34400.gif",
-        category: "Cutie",
-      },
-      {
-        id: "_cutie7",
-        url: "https://forumstatic.ru/files/0013/b7/c4/29045.gif",
-        category: "Cutie",
-      },
-      {
-        id: "_cutie8",
-        url: "https://forumstatic.ru/files/0013/b7/c4/92895.gif",
-        category: "Cutie",
-      },
-      {
-        id: "_cutie9",
-        url: "https://forumstatic.ru/files/0013/b7/c4/48801.gif",
-        category: "Cutie",
-      },
-      {
-        id: "_cutie10",
-        url: "https://forumstatic.ru/files/0013/b7/c4/53227.gif",
-        category: "Cutie",
-      },
-      {
-        id: "_cutie11",
-        url: "https://forumstatic.ru/files/0013/b7/c4/19699.gif",
-        category: "Cutie",
-      },
-      {
-        id: "_cutie12",
-        url: "https://forumstatic.ru/files/0013/b7/c4/90899.gif",
-        category: "Cutie",
-      },
-      {
-        id: "_cutie13",
-        url: "https://forumstatic.ru/files/0013/b7/c4/69845.gif",
-        category: "Cutie",
-      },
-      {
-        id: "_cutie14",
-        url: "https://forumstatic.ru/files/0013/b7/c4/29101.gif",
-        category: "Cutie",
-      },
-      {
-        id: "_cutie15",
-        url: "https://forumstatic.ru/files/0013/b7/c4/64665.gif",
-        category: "Cutie",
-      },
-      {
-        id: "_cutie16",
-        url: "https://forumstatic.ru/files/0013/b7/c4/83017.gif",
-        category: "Cutie",
-      },
-      {
-        id: "_cutie17",
-        url: "https://forumstatic.ru/files/0013/b7/c4/46883.gif",
-        category: "Cutie",
-      },
-      {
-        id: "_cutie18",
-        url: "https://forumstatic.ru/files/0013/b7/c4/94108.gif",
-        category: "Cutie",
-      },
-      {
-        id: "_cutie19",
-        url: "https://forumstatic.ru/files/0013/b7/c4/22980.gif",
-        category: "Cutie",
-      },
-      {
-        id: "_cutie20",
-        url: "https://forumstatic.ru/files/0013/b7/c4/28277.gif",
-        category: "Cutie",
-      },
-      {
-        id: "_emoji1",
-        url: "https://upforme.ru/uploads/001b/ff/2a/3/599491.webp",
-        category: "Emoji",
-      },
-      {
-        id: "_emoji2",
-        url: "https://upforme.ru/uploads/001b/ff/2a/3/35829.webp",
-        category: "Emoji",
-      },
-      {
-        id: "_emoji3",
-        url: "https://upforme.ru/uploads/001b/ff/2a/3/951474.webp",
-        category: "Emoji",
-      },
-      {
-        id: "_emoji4",
-        url: "https://upforme.ru/uploads/001b/ff/2a/3/774801.webp",
-        category: "Emoji",
-      },
-      {
-        id: "_emoji5",
-        url: "https://upforme.ru/uploads/001b/ff/2a/3/588600.webp",
-        category: "Emoji",
-      },
-      {
-        id: "_emoji6",
-        url: "https://upforme.ru/uploads/001b/ff/2a/3/540604.webp",
-        category: "Emoji",
-      },
-      {
-        id: "_emoji7",
-        url: "https://upforme.ru/uploads/001b/ff/2a/3/961014.webp",
-        category: "Emoji",
-      },
-      {
-        id: "_emoji8",
-        url: "https://upforme.ru/uploads/001b/ff/2a/3/799071.webp",
-        category: "Emoji",
-      },
-      {
-        id: "_emoji9",
-        url: "https://upforme.ru/uploads/001b/ff/2a/3/836814.webp",
-        category: "Emoji",
-      },
-      {
-        id: "_emoji10",
-        url: "https://upforme.ru/uploads/001b/ff/2a/3/443120.webp",
-        category: "Emoji",
-      },
-      {
-        id: "_emoji11",
-        url: "https://upforme.ru/uploads/001b/ff/2a/3/85207.webp",
-        category: "Emoji",
-      },
-      {
-        id: "_emoji12",
-        url: "https://upforme.ru/uploads/001b/ff/2a/3/358225.webp",
-        category: "Emoji",
-      },
-      {
-        id: "_emoji13",
-        url: "https://upforme.ru/uploads/001b/ff/2a/3/111609.webp",
-        category: "Emoji",
-      },
-      {
-        id: "_emoji14",
-        url: "https://upforme.ru/uploads/001b/ff/2a/3/744589.webp",
-        category: "Emoji",
-      },
-      {
-        id: "_emoji15",
-        url: "https://upforme.ru/uploads/001b/ff/2a/3/506876.webp",
-        category: "Emoji",
-      },
-      {
-        id: "_emoji16",
-        url: "https://upforme.ru/uploads/001b/ff/2a/3/104585.webp",
-        category: "Emoji",
-      },
-      {
-        id: "_emoji17",
-        url: "https://upforme.ru/uploads/001b/ff/2a/3/752491.webp",
-        category: "Emoji",
-      },
-      {
-        id: "_emoji18",
-        url: "https://upforme.ru/uploads/001b/ff/2a/3/529127.webp",
-        category: "Emoji",
-      },
-      {
-        id: "_emoji19",
-        url: "https://upforme.ru/uploads/001b/ff/2a/3/457564.webp",
-        category: "Emoji",
-      },
-      {
-        id: "_emoji20",
-        url: "https://upforme.ru/uploads/001b/ff/2a/3/802696.webp",
-        category: "Emoji",
-      },
-      {
-        id: "_emoji21",
-        url: "https://upforme.ru/uploads/001b/ff/2a/3/869766.webp",
-        category: "Emoji",
-      },
-      {
-        id: "_emoji22",
-        url: "https://upforme.ru/uploads/001b/ff/2a/3/211537.webp",
-        category: "Emoji",
-      },
-      {
-        id: "_emoji23",
-        url: "https://upforme.ru/uploads/001b/ff/2a/3/168598.webp",
-        category: "Emoji",
-      },
-      {
-        id: "_emoji24",
-        url: "https://upforme.ru/uploads/001b/ff/2a/3/241651.webp",
-        category: "Emoji",
-      },
-      {
-        id: "_emoji25",
-        url: "https://upforme.ru/uploads/001b/ff/2a/3/614982.webp",
-        category: "Emoji",
-      },
-      {
-        id: "_emoji26",
-        url: "https://upforme.ru/uploads/001b/ff/2a/3/624456.webp",
-        category: "Emoji",
-      },
-      {
-        id: "_emoji127",
-        url: "https://upforme.ru/uploads/001b/ff/2a/3/899791.webp",
-        category: "Emoji",
       },
     ],
     includeForumIds: [1, 2, 3, 4, 13, 12, 11, 10],
@@ -643,10 +539,8 @@
       ><img src="https://forumupload.ru/uploads/001c/1e/c3/2/788017.gif"
     /></a>
 
-    <a href="http://rialan.rusff.me" target="_blank">
-      <img
-        src="https://upforme.ru/uploads/001c/52/36/19/859610.png"
-        title="RIALAN: doomed to die"
+    <a href="https://rialan.rusff.me" target="_blank">
+      <img src="https://i.imgur.com/w2dmehd.gif"
     /></a>
 
     <a href="http://mistoua.f-rpg.me/">
@@ -740,7 +634,7 @@
   document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
     const currentTopicId = Number(urlParams.get("id"));
-    const silentQuoteTopics = [1826];
+    const silentQuoteTopics = [1779];
     const isSilent = silentQuoteTopics.includes(currentTopicId);
 
     // Переопределяем поведение кнопки цитирования
@@ -971,7 +865,7 @@
 <!-- scroll top-bottom buttons END -->
 
 <!----- регулировка размера шрифта в постах © Alex_63
-    <script type="text/javascript" src="https://forumstatic.ru/files/0015/c4/3f/31001.js"></script>  ---------------->
+  <script type="text/javascript" src="https://forumstatic.ru/files/0015/c4/3f/31001.js"></script>  ---------------->
 
 <!----- запятая после ника ---------------->
 <script type="text/javascript">
@@ -1170,9 +1064,11 @@
     var r = new RegExp("[\\?&]" + e + "=([^&#]*)").exec(t);
     return null == r ? "" : decodeURIComponent(r[1].replace(/\+/g, " "));
   }
+
   function getRandomInt(e, t) {
     return Math.floor(Math.random() * (t - e)) + e;
   }
+
   function copyAdvertisingToClipboard(e, t) {
     e.preventDefault();
     var r = $(t).closest(".post").find(".permalink").attr("href"),
@@ -1185,8 +1081,13 @@
       "]Обратная реклама[/url]";
     n.val(i).select(), document.execCommand("copy"), n.remove();
   }
-  function addAdvertiseLink(e) {
-    getUrlParameterByName("id", window.location.href) == e &&
+
+  function addAdvertiseLink() {
+    const titleSpan = document.querySelector("#pun-main h1 span");
+    const isAdTopic =
+      titleSpan && /^реклама\s+#\d+$/i.test(titleSpan.textContent.trim());
+
+    if (isAdTopic) {
       $(".post").each(function () {
         var e = $("<li>")
           .attr("class", "pl-advlink")
@@ -1195,12 +1096,17 @@
           );
         $(this).find(".post-links ul").append(e);
       });
+    }
   }
 
   var advertiseCodes = [
-    "[align=center][url=https://wildcross.rusff.me/][img]https://i.imgur.com/6IWdkVt.png[/img][/url] [size=10][url=https://wildcross.rusff.me/viewtopic.php?id=2][color=black]гостевая[/color][/url] × [url=https://wildcross.rusff.me/viewtopic.php?id=7][color=black]нужные персонажи[/color][/url][/size][/align]",
+    "[align=center][url=https://wildcross.ru/][img]https://forumstatic.ru/files/001b/ec/ce/85415.png[/img][/url][/align]",
+    "[align=center][url=https://wildcross.rusff.me/][img]https://i.imgur.com/esUwvVX.png[/img][/url][size=10][url=https://wildcross.rusff.me/viewtopic.php?id=1624][color=black]гостевая[/color][/url] × [url=https://wildcross.rusff.me/viewtopic.php?id=7][color=black]нужные персонажи[/color][/url][/size][/align]",
+    "[align=center][url=https://wildcross.rusff.me/][img]https://i.imgur.com/qhtjC7p.png[/img][/url][size=10][url=https://wildcross.rusff.me/viewtopic.php?id=2][color=black]гостевая[/color][/url] × [url=https://wildcross.rusff.me/viewtopic.php?id=7][color=black]нужные персонажи[/color][/url][/size][/align]",
+    "[align=center][url=https://wildcross.rusff.me/][img]https://i.imgur.com/6IWdkVt.png[/img][/url][size=10][url=https://wildcross.rusff.me/viewtopic.php?id=1624][color=black]гостевая[/color][/url] × [url=https://wildcross.rusff.me/viewtopic.php?id=7][color=black]нужные персонажи[/color][/url][/size][/align]",
   ];
-  addAdvertiseLink(576);
+
+  addAdvertiseLink();
 </script>
 
 <!-- Загрузчик изображений в форме ответа © 2018 Alex_63 -->

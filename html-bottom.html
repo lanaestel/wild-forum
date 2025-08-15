@@ -1,3 +1,73 @@
+<div id="Myawrd" style="display: none">
+  <!--
+  =================================================
+  //НОМЕР НАГРАДЫ    // ЗА ЧТО    // CCЫЛКА НА КАРТИНКУ
+  //=================================================-->
+
+  <p>1,Посадил дерево,https://upforme.ru/uploads/0012/04/67/10/755433.png</p>
+  <p>2,Вырастил лес,https://upforme.ru/uploads/0012/04/67/10/426606.png</p>
+  <p>3,Туман войны,https://upforme.ru/uploads/0012/04/67/10/527259.png</p>
+  <p>4,Говорящие грибы,https://upforme.ru/uploads/0012/04/67/10/557746.png</p>
+  <p>5,НЕговорящие грибы,https://upforme.ru/uploads/0012/04/67/10/557746.png</p>
+</div>
+<script type="text/javascript">
+  var NumPole = 5; //Номер доп поля c наградками;
+  var listMedal = [];
+  $("#Myawrd p").each(function (j) {
+    listMedal[j] = [];
+    listMedal[j] = $(this).html().split(",");
+  });
+
+  var NamFld = ".pa-fld" + NumPole;
+  //var FlugIm= '<img width=51 class=Flug src="http://savepic.org/1911734.png" />';
+  var FlugIm = "";
+  var awSTrt = '<span class=tooltip4><img width="23" class=awards src="';
+  $("div.post-author " + NamFld).each(function () {
+    if ($(this).html() != null) {
+      var L = $(this)
+        .html()
+        .replace(/^.+:(?:[\s]|<br>)/gi, "");
+      var L0 = $(this)
+        .html()
+        .replace(/^(.+:)[\s\S]*$/gim, "$1");
+      $(this).html(L0);
+      var Thisaw = L.split(",");
+      for (j = 0; j < Thisaw.length; j++) {
+        Dp = "";
+        var x = Thisaw[j];
+        x = x.replace(/(\d+)#.+$/gim, "$1");
+        Dp = Thisaw[j].replace(x, "").replace(/^#/i, "");
+        for (i = 0; i < listMedal.length - 1; i++) {
+          //alert(Thisaw[j]+","+listMedal[i][0])
+          if (x == listMedal[i][0]) {
+            L =
+              awSTrt +
+              listMedal[i][2] +
+              '"><span>' +
+              listMedal[i][1] +
+              " " +
+              Dp +
+              "<br>" +
+              FlugIm +
+              "</span></span>";
+            $(this).append(L);
+            break;
+          }
+        }
+      }
+    }
+  });
+</script>
+
+<script>
+  document.querySelectorAll(".pa-fld5").forEach((el) => {
+    const firstChild = el.firstChild;
+    if (firstChild && firstChild.nodeType === Node.TEXT_NODE) {
+      firstChild.textContent = "";
+    }
+  });
+</script>
+
 <!--- new -->
 <script>
   $(".post-author").each(function () {

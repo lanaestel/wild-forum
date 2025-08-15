@@ -1351,27 +1351,6 @@
   });
 </script>
 
-<!-- Перемешать акции в шапке форума -->
-<script>
-  $(document).ready(function () {
-    $(".act-content").each(function () {
-      var block = $(this);
-      var banners = block.find("a").toArray(); // преобразуем в массив для сортировки
-
-      banners.sort(function () {
-        return Math.random() - 0.5;
-      });
-
-      var visible = banners.slice(0, 3);
-      var hidden = banners.slice(3);
-
-      $(visible).appendTo(block).show();
-      block.removeClass("hidden");
-      $(hidden).appendTo(block).hide(); // при желании можно не append, если они уже там
-    });
-  });
-</script>
-
 <!-- Перемешать баннеры при перезагрузке © TheBanana, max, the murderer! 2022 -->
 <script>
   $(document).ready(function () {

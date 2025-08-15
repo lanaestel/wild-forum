@@ -1,0 +1,487 @@
+<!-- Трекер эпизодов от Feathertail -->
+<script src="https://forumstatic.ru/files/001b/ec/ce/78718.js?v=2"></script>
+
+<!---- theme selector with mobile/desktop switcher by g.vatueil START-->
+<style>
+  @media (min-device-width: 768px) {
+    /* скрывать кнопки переключения версий на десктопе */
+    #vtlThemeSelector .vtl-viewport-toggler {
+      display: none;
+    }
+  }
+</style>
+<script type="text/javascript">
+  if (window.gscript == null) window.gscript = {};
+  window.gscript.themes = [
+    {
+      name: "light",
+      color: "#d0cdbf", //"#c2c9bc" //цвет кнопки светлой темы
+    },
+    {
+      name: "green",
+      color: "#646D5F", //"#96a789" //цвет кнопки основной темы
+    },
+    {
+      name: "middle",
+      color: "#515A4A", //"#799268" // Цвет кнопки средней темы
+    },
+    {
+      name: "dark",
+      color: "#21231E", //"#343f2b" // цвет кнопки темной темы
+    },
+  ];
+
+  window.gscript.defaultTheme = "light"; // тема по умолчанию
+  window.gscript.darkTheme = "dark"; // темная тема
+  window.gscript.fullVerText = "Полная версия"; // текст на кнопке для перехода на полную версию
+  window.gscript.mobVerText = "Мобильная версия"; // текст на кнопке для перехода на мобильную версию
+  window.gscript.useDataAttr = true; // для стилей
+  window.gscript.disablePreferColorScheme = true; // отключить автовыбор темной темы
+  window.gscript.scaleDesktop = 0.32;
+</script>
+<script src="https://forumstatic.ru/files/001c/56/64/31866.js"></script>
+<!--- theme selector with mobile/desktop switcher by g.vatueil END -->
+<!--- addons aggregator by g.vatueil v1.0.2 — HTML-верх -->
+<!--<link rel="stylesheet" href="https://forumstatic.ru/files/001c/56/64/48302.css?v=17">-->
+
+<!-- Cчётчик Игровых постов -->
+<script type="text/javascript">
+  /***************************
+            Настройки!
+    ***************************/
+  FORUM._NUMpa_fld = 4; // Номер.Доп.поля,
+  FORUM._color_fld = "inherit"; // Цвет шрифта,
+  FORUM.includeFirstPost = 0; // 0 - не учитывать,1 - учитывать Первопост автора в игровых темах,
+  FORUM.AddOrSlash = 1; //0 - Поле отдельно, 1 - через слешь c общ. числом сообщений,
+  FORUM.Number_winners = [7, [1]]; // Начальное Число отображаемых юзеров в таблице и список форумов показа;
+  FORUM.Subscription_Code = "f87f9524f52b3f15cd458b2bf2a95a906ca5a960"; //Код подписки!!;
+  /**** НАСТРОЙКА Игровых локаций ****/
+  function ad_() {
+    /*!~!FORUM.ForArrAy = {
+    //Форум  //Темы (включаемые, или исключаемые)
+
+    f6	:-[0],  //фандом
+    f7	:-[0], //альтернатива
+    f8	:-[0], //завершенные эпизоды
+    f9	:-[0],  //межфандом
+    f20	:-[0]  //архив эпизодов
+    //Последний элемент без запятой!
+    }
+    !~!*/
+  }
+  ad_ = ad_.toString().split("!~!")[1]; //alert(ad_);
+</script>
+<script
+  type="text/javascript"
+  src="https://forumstatic.ru/files/0013/44/56/77707.js"
+></script>
+<style>
+  .Form-Table {
+  }
+  #pun .punbb .table_GamePosts tbody th {
+    text-align: center;
+    color: #fff;
+    font-size: 10px !important;
+  }
+  #pre_placement > a {
+    top: 3px;
+    right: 2px;
+  }
+  .punbb .GamePst {
+    padding: 0 !important;
+  }
+  .punbb #profile-right li#pa-fld4 strong.GamePst2 {
+  }
+</style>
+<!--//END Cчётчик Игровых постов © Deff-->
+
+<!----------------------------- Быстрая смена аккаунта  ---------------------------->
+<script type="text/javascript">
+  New_EXiT = "https://forumstatic.ru/files/001b/ec/ce/21830.png"; //Дополнительная Иконка выход;
+</script>
+<script
+  data="358d30"
+  src="https://forumstatic.ru/files/0014/cc/0a/93129.js"
+></script>
+
+<!-- Запрет изменения профиля нек-рым никам-->
+<script type="text/javascript">
+  var NoChangeProfile = "curious squirrel,fog cloud"; //Ники юзеров с запретом изменения профиля, через запятую
+</script>
+<script type="text/javascript">
+  if ($("#pun-profile").length && GroupID != 3)
+    $().pun_mainReady(function () {
+      var arr = NoChangeProfile.split(/\s*,\s*/);
+      if ($.inArray(UserLogin, arr) == -1) return;
+      $("#profilenav .item4,.inputfield+.datafield").remove();
+      $("#profile")
+        .find('input[type="text"],textarea')
+        .attr("readonly", "readonly");
+      $("#profile")
+        .find('select,input[type="radio"],input[type="checkbox"]')
+        .attr("disabled", "disabled");
+      $("#profile")
+        .find('.formsubmit,p[style^="padding-bottom"]')
+        .text("Вам запрещено редактировать профиль.");
+      if (!$("#profile4").length && !$("#pun-upavatar").length) return;
+      var message = "Вы не имеете прав для доступа к этой странице.";
+      var title = $("#pun-title h1 > span").text();
+      document.title = title;
+      $(".punbb").attr("id", "#pun-message");
+      var crumbs =
+        '<strong>Вы здесь</strong> »&nbsp;<a href="/">' +
+        title +
+        "</a> »&nbsp;Информация";
+      $("#pun-crumbs1 .crumbs").html(crumbs);
+      $().pun_aboutReady(function () {
+        $("#pun-crumbs2 .crumbs").html(crumbs);
+      });
+      $("#pun-main").html(
+        "<h1><span>Информация</span></h1><div class=info><div class=container>" +
+          message +
+          "</div></div>"
+      );
+    });
+</script>
+
+<!----------------------- / Мгновенные уведомления © Alex_63, Deff 2019 /-->
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="//forumstatic.ru/f/ru/bestbb/notifications.css"
+/>
+<style>
+  .punbb #pun-main .pun-modal.unread-notifications .section h2 {
+    text-align: center !important;
+  }
+  .punbb .pun-modal.unread-notifications .section h2 span {
+    font-size: 14px;
+  }
+</style>
+<script
+  type="text/javascript"
+  src="//forumstatic.ru/f/ru/bestbb/notifications.js"
+></script>
+<script type="text/javascript">
+  notifications.token = "2e90fa1c73b2cbe1db4bea587fb3af1bf7469640"; // Forum token
+  notifications.key = "ubo93ckoo7s7"; // Subscription key
+  RusffCore.sets.notifications = false;
+</script>
+<!--+ Мгновенные уведомления: подписки на форум/тему © Alex_63, 2019 -->
+<script>
+  notifications.load("subscriptions");
+</script>
+<!--+ Мгновенные уведомления: новые посты из важных тем © Alex_63, 2019 -->
+<script type="text/javascript">
+  notifications.load("common", {});
+  notifications.load("important", { topics: [5, 6] }); // ID важных тем (через запятую)
+</script>
+<!--+ Мгновенные уведомления: комментарии к репутации без переадресации  Alex_63, 2019 -->
+<script>
+  notifications.load("reputation");
+</script>
+<!--+ Мгновенные уведомления: упоминания © Alex_63, 2020 -->
+<script>
+  notifications.load("mentions");
+</script>
+
+<!-- Скрытие профиля в теме тегом © Alex_63 -->
+<style type="text/css">
+  .hideprofile .post-author,
+  .hideprofile .pl-email,
+  .hideprofile .pl-website {
+    display: none !important;
+  }
+  .hideprofile .post-body,
+  .hideprofile .post-links,
+  .hideprofile .post-links ul,
+  .post.hideprofile h3 > span {
+    margin-left: 0 !important;
+  }
+  .hideprofile .post-body {
+    width: 100%;
+  }
+</style>
+<script>
+  FORUM.set("editor.addition.tags.hideprofile", {
+    name: "Скрыть минипрофиль",
+    onclick: function () {
+      insert("[hideprofile]");
+    },
+  });
+  $().pun_mainReady(function () {
+    $('.post:contains("[hideprofile]")')
+      .addClass("hideprofile")
+      .html(function () {
+        return $(this)
+          .html()
+          .replace(/\[hideprofile\]/gim, "");
+      });
+  });
+</script>
+<script>
+  // Кнопка "Скрыть тему"
+  FORUM.set("editor.addition.tags.hidetopic", {
+    name: "Скрыть тему",
+    onclick: function () {
+      insert("[block=hide-topic][/block]");
+    },
+  });
+</script>
+<script>
+  // Кнопка "Пост перемещен"
+  FORUM.set("editor.addition.tags.movetopic", {
+    name: "Пост перемещен",
+    onclick: function () {
+      insert("[block=mov][/block]");
+    },
+  });
+</script>
+
+<!------------------------ Всплывающие Подсказки при наведении-->
+<!--<script type="text/javascript" src="https://forumstatic.ru/files/001a/63/95/74585.js"></script>-->
+
+<!------------------------ Запрет перехода на первую страницу При удалении Тем и сообщений -->
+<script
+  type="text/javascript"
+  src="https://forumstatic.ru/files/0010/b4/f8/33839.js"
+></script>
+
+<!------------------------ Смена аватара в топике (в HTML верх) © Deff, Alex_63 -->
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="https://forumstatic.ru/files/0015/c4/3f/67168.css"
+/>
+<script
+  type="text/javascript"
+  src="https://forumstatic.ru/files/0015/c4/3f/67169.js"
+></script>
+
+<!------------------------ Выделение кода в блоке "Код" с перемещение в буфер обмена // © Damassk, версия 2019г. -->
+<script
+  type="text/javascript"
+  src="https://forumstatic.ru/files/0016/4a/bf/98029.js"
+></script>
+<script>
+  eval(
+    select_text
+      .toString()
+      .replace(/\}$/, 'try{document.execCommand("copy")}catch(e){}}')
+  );
+</script>
+<script type="text/javascript">
+  select_text.linkText = "wildcode [копируется сразу]"; //текст ссылки
+</script>
+
+<!------------------------ Быстроплюсы v.2 РЕНО by Deff //-->
+<script
+  type="text/javascript"
+  src="https://forumstatic.ru/files/0012/d8/04/58219.js"
+  addcomment="1"
+></script>
+
+<!--автоматизация списка заявок-->
+<script src="https://forumstatic.ru/files/0017/95/29/51757.js"></script>
+<script>
+  hvWantedFilters.init(7, 8, 362);
+</script>
+
+<!----------------------- Пиар-вход и Читатель v.2 -->
+<script src="https://forumstatic.ru/files/0015/c4/3f/26781.js"></script>
+<script type="text/javascript">
+  PR.nick = "fog cloud"; //Ник PR-аккаунта
+  PR.pass = "brother"; //Пароль PR-аккаунта
+  PR.btn_text = "РЕКЛАМА"; //Надпись на кнопке PR-входа(или ссылка на картинку);
+  PR.set();
+</script>
+
+<script type="text/javascript">
+  PR.nick = "curious squirrel"; //Ник Читателя
+  PR.pass = "heretoread"; //Пароль
+  PR.btn_text = "Читать"; //Надпись на кнопке PR-входа(или ссылка на картинку);
+  PR.set();
+</script>
+
+<script type="text/javascript">
+  function showNoAccessMessage(title) {
+    var hSt = "<h1><span>Информация</span></h1>";
+    var hCn = '<div class="info"><div class="container">';
+    hCn += "Вы не имеете прав для доступа к этой теме.";
+    hCn += "</div></div>";
+    var crCnt = ' »&nbsp;<a href="/">' + title + "</a> »&nbsp;Информация";
+    document.title = title;
+    $("#pun-main").html(hSt + hCn);
+    $(".crumbs").html(crCnt);
+  }
+
+  function hideIfMarkedByClass(userArr) {
+    if ($.inArray(UserID, userArr) !== -1) {
+      if ($("#pun-viewtopic").length && $(".hide-topic").length > 0) {
+        var txt = $("#pun-title h1").text();
+        showNoAccessMessage(txt);
+      }
+    }
+  }
+
+  // Настройки пользователей, которым нельзя видеть темы с .hide-topic
+  $(function () {
+    hideIfMarkedByClass([10, 537]);
+  });
+</script>
+
+<!------------------------ Регулятор размера шрифта (конец) (с) satsana, forumd.ru -->
+<div id="chfont">
+  <div id="chfontbut"></div>
+  <select id="chfontfam" name="chfontfam">
+    <option value="0" selected="selected">по умолчанию</option>
+    <option
+      value="Arial, Helvetica, sans-serif"
+      style="font-family: Arial, Helvetica, sans-serif"
+    >
+      Arial
+    </option>
+    <option value="'Arial Black', Gadget, sans-serif" style="font-family: ">
+      Arial Black
+    </option>
+    <option
+      value="'Book Antiqua', 'Palatino Linotype', Palatino, serif"
+      style="font-family: 'Book Antiqua', 'Palatino Linotype', Palatino, serif"
+    >
+      Book Antiqua
+    </option>
+    <option
+      value="'Comic Sans MS', cursive, sans-serif"
+      style="font-family: 'Comic Sans MS', cursive, sans-serif"
+    >
+      Comic Sans
+    </option>
+    <option
+      value="'Courier New', Courier, monospace"
+      style="font-family: 'Courier New', Courier, monospace"
+    >
+      Courier
+    </option>
+    <option value="Georgia, serif" style="font-family: Georgia, serif">
+      Georgia
+    </option>
+    <option
+      value="Impact, Charcoal, sans-serif"
+      style="font-family: Impact, Charcoal, sans-serif"
+    >
+      Impact
+    </option>
+    <option
+      value="'Lucida Console', Monaco, monospace"
+      style="font-family: 'Lucida Console', Monaco, monospace"
+    >
+      Lucida Console
+    </option>
+    <option
+      value="'Lucida Grande', 'Lucida Sans Unicode', sans-serif"
+      style="font-family: 'Lucida Grande', 'Lucida Sans Unicode', sans-serif"
+    >
+      Lucida Grande
+    </option>
+    <option
+      value="Tahoma, Geneva, sans-serif"
+      style="font-family: Tahoma, Geneva, sans-serif"
+    >
+      Tahoma
+    </option>
+    <option
+      value="'Times New Roman', Times, serif"
+      style="font-family: 'Times New Roman', Times, serif"
+    >
+      Times New Roman
+    </option>
+    <option
+      value="'Trebuchet MS', Helvetica, sans-serif"
+      style="font-family: 'Trebuchet MS', Helvetica, sans-serif"
+    >
+      Trebuchet
+    </option>
+    <option
+      value="Verdana, Geneva, sans-serif"
+      style="font-family: Verdana, Geneva, sans-serif"
+    >
+      Verdana
+    </option>
+    <option
+      value="'MS Sans Serif', Geneva, sans-serif"
+      style="font-family: 'MS Sans Serif', Geneva, sans-serif"
+    >
+      Sans Serif
+    </option>
+    <option
+      value="'MS Serif', 'New York', serif"
+      style="font-family: 'MS Serif', 'New York', serif"
+    >
+      Serif
+    </option>
+  </select>
+  <div id="chfontsize">
+    <div class="fsizeplus"></div>
+    <div class="fsize">13</div>
+    <div class="fsizeminus"></div>
+  </div>
+</div>
+<script type="text/javascript">
+  var chfsize, chffam;
+  if (!localStorage.fontsize) localStorage.setItem("fontsize", 13);
+  if (!localStorage.fontfam) localStorage.setItem("fontfam", "0");
+  chfsize = +localStorage.getItem("fontsize");
+  chffam = localStorage.getItem("fontfam");
+  function setfsize(f) {
+    localStorage.setItem("fontsize", f);
+    $(".fsize").text(f);
+    $(".post-content > p, .silent-quote > p, blockquote > p").css(
+      "font-size",
+      f + "px"
+    );
+  }
+  function setffam(f) {
+    localStorage.setItem("fontfam", f);
+    $("#chfontfam option").removeAttr("selected");
+    $('#chfontfam option[value="' + f + '"]').attr("selected", "selected");
+    if (f != "0")
+      $(".post-content > p, .silent-quote > p, blockquote > p").css(
+        "font-family",
+        f
+      );
+    else
+      $(".post-content > p, .silent-quote > p, blockquote > p").css(
+        "font-family",
+        ""
+      );
+  }
+  $(".fsizeplus").on("click", function () {
+    chfsize += 1;
+    if (chfsize > 72) chfsize = 72;
+    setfsize(chfsize);
+  });
+  $(".fsizeminus").on("click", function () {
+    chfsize -= 1;
+    if (chfsize < 6) chfsize = 6;
+    setfsize(chfsize);
+  });
+  $("#chfontbut").on("click", function () {
+    $("#chfont").toggleClass("active");
+  });
+  $("#chfontfam").on("change", function () {
+    chffam = $(this).val();
+    setffam(chffam);
+  });
+  $(document).pun_mainReady(function () {
+    setfsize(chfsize);
+    setffam(chffam);
+  });
+</script>
+<!--- Регулятор вида и размера шрифта (с) satsana, forumd.ru (конец) -->
+
+<!---- Dice roller(c) Spiritus Tergi, ч1 в хтмл-верх ---->
+<script
+  type="text/javascript"
+  src="https://forumstatic.ru/files/001b/ec/ce/59078.js"
+  charset="UTF-8"
+></script>

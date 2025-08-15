@@ -1,0 +1,513 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.1.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
+<style type="text/css">
+  .pages div.container {
+    overflow: hidden;
+  }
+
+  .stats-info {
+    font-size: 11px;
+    padding: 0 10% 10px 10%;
+    line-height: 150%;
+    text-align: justify;
+    word-wrap: break-word;
+  }
+
+  .stats-form {
+    font-size: 11px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .stats-form-item {
+    flex-direction: column;
+    display: flex;
+  }
+
+  .stats-form-block {
+    padding: 5px;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .item-block {
+    padding: 10px 15px;
+  }
+
+  .posts-cell {
+    width: 50%;
+  }
+
+  .name-cell {
+    width: 20%;
+  }
+
+  .score-cell {
+    width: 10%;
+  }
+
+  .item-name,
+  .item-score {
+    font-size: 1.3em;
+  }
+
+  .item-posts {
+    font-size: 1.1em;
+  }
+
+  .stats-result {
+    padding: 0 5% 0 5%;
+  }
+
+  .stats-result table {
+    border: 3px rgb(0, 0, 0, 0.5) double;
+  }
+
+  .stats-result td {
+    vertical-align: top;
+    border-right-color: black;
+    border-bottom-color: black;
+    border-width: 1px !important;
+    border-style: solid !important;
+  }
+
+  tr.total {
+    font-weight: bold;
+  }
+
+  .posts-cell li {
+    line-height: 1.5;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .post-time {
+    opacity: 0.9;
+    font-size: 1em;
+  }
+
+  .loading {
+    font-size: 1.3em;
+    margin-left: 35%;
+    padding: 10px;
+    display: block;
+  }
+
+  .loading:after {
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: bottom;
+    -webkit-animation: ellipsis steps(4, end) 900ms infinite;
+    animation: ellipsis steps(4, end) 900ms infinite;
+    content: "\2026";
+    /* ascii code for the ellipsis character */
+    width: 0px;
+  }
+
+  @keyframes ellipsis {
+    to {
+      width: 1.25em;
+    }
+  }
+
+  @-webkit-keyframes ellipsis {
+    to {
+      width: 1.25em;
+    }
+  }
+</style>
+<div id="pun-main" class="main pages">
+  <div class="section">
+    <h1><span>Посты за N дней</span></h1>
+    <div class="container">
+      <div class="stats-info">
+        Здесь можно узнать, сколько (а ещё где и когда) постов было написано за
+        заданный период времени каждым пользователем, кроме тех, что не написали
+        совсем ничего. Пользователи сортируются по количеству написанных постов
+        в порядке убывания, посты в списке сортируются хронологически.
+        <br />
+        (А если не сортируются - значит, что-то пошло не так.)
+      </div>
+      <div class="stats-form">
+        <div class="stats-form-block">
+          Место для кастомизации подфорумов, которой нет.
+        </div>
+        <div class="stats-form-block">
+          <div class="stats-form-item">
+            <label for="start-date">Начало сбора статистики:</label>
+            <input type="date" id="start-date" />
+          </div>
+          <div class="stats-form-item">
+            <label for="end-date">Окончание сбора статистики:</label>
+            <input type="date" id="end-date" />
+          </div>
+        </div>
+        <div class="stats-form-block">
+          <input
+            type="button"
+            id="stats-button"
+            class="button"
+            value="запуск"
+          />
+        </div>
+      </div>
+
+      <div id="stats-result" class="stats-result"></div>
+
+      <script>
+        (function () {
+          // Форумы, в которых искать
+          var startLinks = [
+            "https://wildcross.rusff.me/viewforum.php?id=6",
+            "https://wildcross.rusff.me/viewforum.php?id=9",
+            "https://wildcross.rusff.me/viewforum.php?id=7",
+            "https://wildcross.rusff.me/viewforum.php?id=8",
+            "https://wildcross.rusff.me/viewforum.php?id=20",
+          ];
+          // Темы, в которых не нужно искать посты - например, шаблоны эпизодов.
+          var excludeLinks = [
+            "https://wildcross.rusff.me/viewtopic.php?id=18",
+            "https://wildcross.rusff.me/viewtopic.php?id=19",
+          ];
+          var excludeLinkIds = excludeLinks.map((link) =>
+            getURLParam(link, "id")
+          );
+
+          // System messages
+          var errorMessageHtml =
+            "<h2>Что-то пошло не так. Зовите инквизицию.<h2>\n<small>(А вы точно указали дату?)</small>";
+          var errorFutureDateMessageHtml =
+            "<h2>Машина времени в ремонте, невозможно посчитать посты из будущего.<h2>";
+          var loadingMessageHtml =
+            '<span class="loading">Не двигайтесь. Идет сканирование</span>';
+          // Other
+          var tableCaption = "<h1>Статистика</h1>";
+          var tableFirstRow =
+            '<tr><td class="name-cell">Игрок</td><td class="score-cell">Количество</td><td class="posts-cell">Посты</td></tr>';
+          var rowTpl = _.template(
+            '<tr><td class="name-cell"><div class="item-block item-name"><%= user %></div></td>' +
+              '<td class="score-cell"><div class="item-block item-score"><%= score %></div></td>' +
+              '<td class="posts-cell"><div class="item-block item-posts"><ul><%= posts %></ul></div></td><tr>'
+          );
+          var postTpl = _.template(
+            '<li><a href="<%= link %>"><%= title %></a> <span class="post-time"><%= time %></span></li>'
+          );
+          var totalScoreTpl = _.template(
+            '<tr class="total"><td class="name-cell">Всего</td>' +
+              '<td class="score-cell"><%= total %></td>' +
+              '<td class="posts-cell">⬡⬢⬡⬢⬡⬡⬡ ⬡ ⬡ ⬢ ⬡ ⬡⬡ ⬡⬢ ⬢ ⬢</td></tr>'
+          );
+          //update by Casey - выводить отдельной строкой юзеров без постов за указанный период
+          var allUsers = [];
+          var includeMarkedForDeletion = false; // Фильтр пользователей, помеченных на удаление
+          var excludedUsers = ["mama bear", "herald", "Мийрон"]; // Исключенные пользователи
+
+          function getAllUsers() {
+            var usersPageUrl =
+              "https://wildcross.rusff.me/userlist.php?show_group=-1&sort_by=last_visit&sort_dir=DESC&username=-&p=-1";
+            return new Promise((resolve) => {
+              $.get(usersPageUrl, function (html) {
+                var parser = new DOMParser();
+                var doc = parser.parseFromString(html, "text/html");
+                allUsers = $(doc)
+                  .find(
+                    "#pun-main > div.usertable > div > table > tbody > tr > td.tcl.username > span > a"
+                  )
+                  .map(function () {
+                    return {
+                      name: $(this).text().trim(),
+                      link: $(this).attr("href"),
+                    };
+                  })
+                  .get();
+                resolve();
+              });
+            });
+          }
+
+          function getResults(links) {
+            getAllUsers().then(() => {
+              var startDateStr = $("#start-date").val() + " 00:00:00";
+              var startDate = Date.parse(formatDate(startDateStr));
+              var endDateStr = $("#end-date").val() + " 23:59:59";
+              var endDate = Date.parse(formatDate(endDateStr));
+
+              if (isNaN(startDate)) {
+                $("#stats-result").html(errorMessageHtml);
+                return;
+              }
+              if (startDate > Date.now()) {
+                $("#stats-result").html(errorFutureDateMessageHtml);
+                return;
+              }
+              if (isNaN(endDate) || endDate > Date.now()) {
+                endDate = Date.now();
+              }
+
+              $("#stats-result").html(loadingMessageHtml);
+              collectStats(links, 0, 1, [], startDate, endDate);
+            });
+          }
+
+          function getLastPageNumber(html) {
+            var lastPageNum = $(html)
+              .find(".linkst .pagelink")
+              .text()
+              .match(/\d+/g)
+              .pop();
+
+            return parseInt(lastPageNum);
+          }
+
+          function getURLParam(url, param) {
+            var parsedUrl = new URL(url);
+
+            return parsedUrl.searchParams.get(param);
+          }
+
+          function getAllLinksOnPage(html, startDate, currentPage) {
+            var links = [];
+            var finished = false;
+
+            $(html)
+              .find(".tcr>a")
+              .each(function () {
+                var linkHref = $(this).attr("href");
+                var linkText = $(this).text();
+
+                if (excludeLinkIds.includes(getURLParam(linkHref, "id"))) {
+                  return;
+                }
+
+                var lastUpdate = Date.parse(formatDate(linkText));
+
+                if (
+                  typeof lastUpdate !== "undefined" &&
+                  lastUpdate < startDate
+                ) {
+                  finished = true;
+
+                  return 0;
+                }
+
+                links.push(linkHref);
+
+                var linkPage = getURLParam(linkHref, "p");
+
+                if (linkPage) {
+                  var paramIndex = linkHref.indexOf("&p=") + 3;
+                  for (var p = 1; p < linkPage; p++) {
+                    links.push(linkHref.substr(0, paramIndex) + p);
+                  }
+                }
+              });
+
+            return {
+              finished: finished,
+              links: links,
+            };
+          }
+
+          function createPageContainer(pageData) {
+            var newHTMLDocument =
+              document.implementation.createHTMLDocument("preview");
+            var dataContainer = newHTMLDocument.createElement("div");
+
+            dataContainer.innerHTML = pageData;
+
+            return dataContainer;
+          }
+
+          function collectStats(
+            baseurls,
+            i,
+            pageNum,
+            links,
+            startDate,
+            endDate
+          ) {
+            const url = baseurls[i] + "&p=" + pageNum;
+            console.info("Trying ", url);
+            function handlePage(data) {
+              var dataContainer = createPageContainer(data);
+              var maxPageNum = getLastPageNumber(dataContainer);
+              var result = getAllLinksOnPage(dataContainer, startDate, pageNum);
+
+              $.merge(links, result.links);
+
+              if (
+                isNaN(maxPageNum) ||
+                pageNum >= maxPageNum ||
+                result.finished
+              ) {
+                if (i < baseurls.length - 1) {
+                  i++;
+                  collectStats(baseurls, i, 1, links, startDate, endDate);
+                } else {
+                  getData(links, 0, {}, startDate, endDate);
+                }
+              } else {
+                pageNum++;
+                collectStats(baseurls, i, pageNum, links, startDate, endDate);
+              }
+            }
+
+            $.get(url, handlePage);
+          }
+
+          function sleep(ms) {
+            return new Promise((resolve) => setTimeout(resolve, ms));
+          }
+
+          function getData(links, i, data, startDate, endDate) {
+            $.get(links[i], function (html) {
+              data = getPosts(html, data, startDate, endDate);
+              if (i < links.length - 1) {
+                i++;
+                sleep(500).then(() => {
+                  getData(links, i, data, startDate, endDate);
+                });
+              } else {
+                renderResult(data);
+              }
+            });
+          }
+
+          function getPosts(html, data, startDate, endDate) {
+            var parser = new DOMParser();
+            html = parser.parseFromString(html, "text/html");
+            var ptitle = html.getElementsByTagName("title").item(0).innerText;
+            var posts = $(html).find(".post");
+
+            posts.each(function () {
+              if (!$(this).hasClass("topicpost")) {
+                var name = $(this).find(".pa-author").text().substr(7);
+                var $link = $(this).find("a.permalink");
+                var postDate = Date.parse(formatDate($link.text()));
+
+                // ⚡️ Вот тут добавляем проверку на наличие .mov внутри .post-content
+                var hasMov = $(this).find(".post-content .mov").length > 0;
+                if (hasMov) {
+                  return; // Если есть .mov, пропускаем этот пост
+                }
+
+                if (
+                  !isNaN(postDate) &&
+                  postDate >= startDate &&
+                  postDate <= endDate
+                ) {
+                  var encodedName = encodeURI(name);
+                  if (typeof data[encodedName] === "undefined") {
+                    data[encodedName] = {};
+                    data[encodedName].total = 0;
+                    data[encodedName].posts = [];
+                  }
+                  data[encodedName].total++;
+                  data[encodedName].posts.push([
+                    $link.attr("href"),
+                    ptitle,
+                    $link.text(),
+                  ]);
+                }
+              }
+            });
+            return data;
+          }
+
+          function renderResult(data) {
+            var activeUsers = Object.keys(data).map(decodeURI);
+            var inactiveUsers = allUsers.filter(
+              (user) => !activeUsers.includes(user.name)
+            );
+
+            if (!includeMarkedForDeletion) {
+              inactiveUsers = inactiveUsers.filter(
+                (user) => !/[*]$|\[x\]$/.test(user.name)
+              );
+            }
+
+            // Исключаем пользователей из списка
+            inactiveUsers = inactiveUsers.filter(
+              (user) => !excludedUsers.includes(user.name.toLowerCase())
+            );
+
+            var absTotal = _(data).map("total").sum();
+            var userStats = _(data)
+              .toPairs()
+              .sortBy("1.total")
+              .reverse()
+              .value();
+
+            var tableHtml = _(userStats)
+              .map(function ([user, stats]) {
+                var posts = _(stats.posts)
+                  .sortBy("2")
+                  .map(
+                    ([link, title, time]) =>
+                      `<li><a href="${link}">${title}</a> <span class="post-time">${time}</span></li>`
+                  )
+                  .join("");
+                return `<tr>
+                          <td class="name-cell">${decodeURI(user)}</td>
+                          <td class="score-cell">${stats.total}</td>
+                          <td class="posts-cell"><ul>${posts}</ul></td>
+                        </tr>`;
+              })
+              .join("");
+
+            var inactiveUsersHtml =
+              inactiveUsers.length > 0
+                ? `<tr><td colspan="3" class="inactive-users">Пользователи без постов: ${inactiveUsers
+                    .map((user) => `<a href="${user.link}">${user.name}</a>`)
+                    .join(", ")}</td></tr>`
+                : "";
+
+            var forumCopyList =
+              inactiveUsers.length > 0
+                ? `[code]\n` +
+                  inactiveUsers
+                    .map((user) => `[url=${user.link}]${user.name}[/url]`)
+                    .join("\n") +
+                  `\n[/code]`
+                : "";
+
+            var html = "<h1>Статистика</h1><br><table>";
+            html +=
+              '<tr><td class="name-cell">Игрок</td><td class="score-cell">Количество</td><td class="posts-cell">Посты</td></tr>';
+            html += tableHtml;
+            html += `<tr class="total"><td class="name-cell">Всего</td><td class="score-cell">${absTotal}</td><td class="posts-cell">⬡⬢⬡⬢⬡⬡⬡ ⬡ ⬡ ⬢ ⬡ ⬡⬡ ⬡⬢ ⬢ ⬢</td></tr>`;
+            html += inactiveUsersHtml;
+            html += "</table>";
+            html += forumCopyList
+              ? `<div class="forum-copy"><h4>Список для копирования</h4><textarea readonly>${forumCopyList}</textarea></div>`
+              : "";
+
+            $("#stats-result").html(html);
+          }
+
+          function formatDate(dateString) {
+            var str = dateString.toLowerCase();
+            if (str.indexOf("вчера") !== -1) {
+              var time = str.substr("вчера".length);
+              return moment().subtract(1, "days").format("YYYY-MM-DD") + time;
+            }
+            if (str.indexOf("сегодня") !== -1) {
+              var time = str.substr("сегодня".length);
+              return moment().format("YYYY-MM-DD") + time;
+            }
+            return str;
+          }
+          $(document).ready(function () {
+            $("#stats-button").click(() => getResults(startLinks));
+          });
+        })();
+      </script>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).trigger("pun_main_ready");
+</script>

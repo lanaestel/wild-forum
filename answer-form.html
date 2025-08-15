@@ -1,0 +1,150 @@
+<!--- дополнительные смайлы v.3.1 -->
+<script src="https://forumstatic.ru/files/0017/95/29/40399.js"></script>
+<script>
+  $(document).ready(function () {
+    hvStickerPack.init("http://forumstatic.ru/files/001b/ec/ce/25271.txt");
+  });
+</script>
+
+<script src="https://forumstatic.ru/files/001a/b2/94/11985.js?v=5"></script>
+
+<!--Отправка сообщений ctrl+entr-->
+<script type="text/javascript">
+  document.onkeydown = function (e) {
+    if (e) event = e;
+    if (event.keyCode == 13 && event.ctrlKey) {
+      document.getElementById("post").submit.click();
+      document.getElementById("post").reset();
+    }
+  };
+</script>
+
+<!--- Тег [block] в форме ответа © max, the murderer! -->
+
+<script type="text/javascript">
+  if (GroupID <= 2) {
+    FORUM.set("editor.addition.tags.block", {
+      name: "Кастомный блок",
+      class_name: function () {
+        return prompt("Введите класс", "myclass");
+      },
+      onclick: function () {
+        var blockClass;
+        (blockClass = FORUM.get("editor.addition.tags.block.class_name()"))
+          ? bbcode("[block=" + blockClass + "]", "[/block]")
+          : bbcode("");
+      },
+    });
+  }
+</script>
+
+<!--- Простенький счетчик символов в Форму Ответа-->
+<script>
+  var a,
+    L,
+    epl = $("#main-reply"),
+    str = '<small id="plng" style="">Написано символов: <b>00</b> </small>';
+  epl.parents("fieldset").find("legend").prepend(str);
+  function epl3() {
+    a = epl.val().length;
+    if (a > 9) {
+      L = "";
+    } else {
+      L = "0";
+    }
+    $("#plng b").text(L + a);
+  }
+  epl3();
+  $(".pl-quote").click(function () {
+    setTimeout("epl3()", 100);
+  });
+  epl.bind("mouseout mousemove keydown keypress keyup", function (e) {
+    epl3();
+  });
+</script>
+
+<!--- Восстановление Цитирования для ников с одинарной кавычкой © Deff -->
+<script
+  type="text/javascript"
+  src="https://forumstatic.ru/files/0014/cc/0a/86365.js"
+></script>
+
+<!--- Расширенная палитра цветов (NEW) -->
+<style type="text/css">
+  input[type="color"]::-webkit-color-swatch {
+    background-color: transparent !important;
+    border: none;
+  }
+  input[type="color"]::-moz-color-swatch {
+    background-color: transparent !important;
+    border: none;
+  }
+  #litr {
+    background: url(//data.colorzilla.com/images/logo.png) no-repeat scroll 0 0 /
+      cover;
+  }
+</style>
+<script type="text/javascript">
+  $("#color-area tr").append(
+    '<td><input type="color" id="litr" style="cursor:pointer;padding:0;width:22px;" title="Показать всю палитру" value=""></td>'
+  );
+  $("#litr").change(function () {
+    bbcode("[color=" + this.value + "]", "[/color]");
+  });
+</script>
+<!--- Расширенная палитра цветов (NEW) -->
+
+<!--Вставить картинку-->
+<script>
+  var oldIMG =
+    '<td id="button-image" title="Вставить картинку"><img onclick="bbcode(\'[img]\',\'[/img]\')" src="/i/blank.gif"/><b><p style="z-index:20;position:absolute;height14px;margin:0;top:-8px;right:-4px;">*</p></b></td>';
+  $("#button-image").after(oldIMG);
+</script>
+
+<!--- дополнительные шрифты -->
+<script>
+  $(document).ready(function () {
+    $("#font-area").append(
+      '<div style="font-family:akira"><span>akira</span><img onclick="bbcode(\'[font=akira]\',\'[/font]\')" src="/i/blank.gif" /></div>'
+    );
+    $("#font-area").append(
+      '<div style="font-family:igra"><span>igra</span><img onclick="bbcode(\'[font=igra]\',\'[/font]\')" src="/i/blank.gif" /></div>'
+    );
+    $("#font-area").append(
+      '<div style="font-family:futura"><span>futura</span><img onclick="bbcode(\'[font=futura]\',\'[/font]\')" src="/i/blank.gif" /></div>'
+    );
+    $("#font-area").append(
+      '<div style="font-family:Geist-Medium"><span>Geist-Medium</span><img onclick="bbcode(\'[font=Geist-Medium]\',\'[/font]\')" src="/i/blank.gif" /></div>'
+    );
+  });
+</script>
+
+<!----------- обтекание изображения + тег абзаца by vatueil ------------>
+<script>
+  // требуется кастомный тег float[/data-float]:a
+  // используются иконки uicons
+  $("#button-link").before(
+    `<td id="button-float" title="Обтекание изображения" onclick='changeVisibility("float-area")'><img src="/i/blank.gif"></i></td>`
+  );
+  let floatContainer = `<div class="container" id="float-area" style="display:none" onclick='changeVisibility("float-area")'>
+    <div><strong>Направление обтекания</strong></div>
+    <div style="text-align: center; margin: .5rem 0 0;">
+    <button type="button" class="float-button float-to-left" onclick="bbcode('[float=left]', '[/float]');return false;">
+    <i class="fi fi-rr-arrow-alt-to-left"></i>
+    </button>
+    <button type="button" class="float-button float-to-right" onclick="bbcode('[float=right]', '[/float]');return false;">
+    <i class="fi fi-rr-arrow-alt-to-right"></i>
+    </button>    
+    </div> 
+    </div>`;
+  $("#float-area .float-button").on("click", function () {
+    $(this).parent().hide();
+  });
+  $("#keyboard-area").after(floatContainer);
+
+  // требуется кастомный тег indent:si
+
+  $("#button-strike").after(
+    '<td id="button-indent" title="Отступы"><img src="/i/blank.gif"  onclick="smile(\'[indent]\')"></td>'
+  );
+</script>

@@ -1,0 +1,67 @@
+<div>
+  <form>
+    <div>
+      <label>
+        Имя пользователя:
+        <input type="text" id="user_name_fld" name="user_name" />
+      </label>
+    </div>
+    <div>
+      <label>
+        Дата последнего захода в банк (в формате гггг-мм-дд чч:мм:сс):
+        <input type="text" id="last_date_fld" name="last_date" />
+      </label>
+    </div>
+    <div>
+      <label>
+        Сколько сейчас рун в профиле:
+        <input type="text" id="before_fld" name="before" />
+      </label>
+    </div>
+    <a onclick="calculate()" style="cursor: pointer">Посчитать</a>
+  </form>
+</div>
+<div id="code"></div>
+
+<script src="https://frpgtools.com/static/scripts/calculate.js"></script>
+<script>
+  const currency_dict = {
+    one: "руна",
+    two: "руны",
+    five: "рун",
+    pricelist: [
+      {
+        min: 101,
+        price: 45,
+      },
+    ],
+  };
+
+  const subforums = [6, 7, 8, 9, 20];
+
+  document.getElementById("user_name_fld").value = UserLogin;
+  let tickets = 0;
+
+  if (typeof UserFld1 !== "undefined") {
+    let numberPattern = /\d+/g;
+    tickets = UserFld1.match(numberPattern)[0];
+  }
+  document.getElementById("before_fld").value = tickets;
+
+  async function calculate() {
+    const user_name = document.getElementById("user_name_fld").value;
+    const start_time_str = document.getElementById("last_date_fld").value;
+    const before = document.getElementById("before_fld").value;
+    const posts = await get_posts(
+      subforums,
+      user_name,
+      start_time_str,
+      currency_dict
+    );
+    const result =
+      '<div class="code-box"><strong class="legend">Код:</strong><div class="blockcode"><div class="scrollbox"><pre>' +
+      format_message(posts, before) +
+      "</pre></div></div></div>";
+    document.getElementById("code").innerHTML = result;
+  }
+</script>

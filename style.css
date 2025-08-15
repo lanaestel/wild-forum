@@ -1,0 +1,52 @@
+@charset "Windows-1251";
+@import url("//forumstatic.ru/files/001c/56/64/48043.css"); /* modern normalize*/
+@import url("//forumstatic.ru/files/001c/56/64/56573.css"); /*f-rr*/
+@import url("//forumstatic.ru/files/001c/56/64/25153.css"); /*fi-ss*/
+/*@import url("//forumstatic.ru/files/0012/04/67/11158.css"); */ /* для тем new */
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+
+@import url(style_cs.css);
+
+@font-face {
+  font-family: "FortuneC";
+  src: url("https://forumstatic.ru/files/001b/ec/ce/18233.otf")
+    format("opentype");
+}
+
+@font-face {
+  font-family: "TaylorS";
+  src: url("https://forumstatic.ru/files/001b/ec/ce/68940.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "Coliseum";
+  src: url("https://forumstatic.ru/files/001b/ec/ce/10218.ttf")
+    format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Summer";
+  src: url("https://forumstatic.ru/files/001c/7f/71/67019.otf"),
+    format("opentype");
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Century Gothic";
+  src: url("https://forumstatic.ru/files/001c/7f/71/31658.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Century Gothic";
+  src: url("https://forumstatic.ru/files/001c/7f/71/70505.ttf")
+    format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}

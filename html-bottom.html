@@ -1,0 +1,1363 @@
+<!--- new -->
+<script>
+  $(".post-author").each(function () {
+    $(this)
+      .find(".pa-posts, .pa-respect, .pa-fld1, .pa-fld2")
+      .wrapAll('<li class="pa-info">');
+  });
+</script>
+<!--- end new -->
+
+<!----- addons aggregator by g.vatueil v1.0.2 START -->
+<script>
+  if (window.gscript == null) window.gscript = {};
+  window.gscript.addons = [
+    {
+      selector: "#vtlThemeSelector", // theme switcher by g.vatueil
+      cls: "vtl-themes",
+      name: "Тема сайта",
+      default: true,
+    },
+    {
+      selector: "#MyBookmarks", // закладки от сервиса
+      cls: "bookmarks",
+      name: "Закладки",
+      badge_selector: "#BookmCntToggle",
+    },
+    {
+      selector: "#chfont", //смена шрифта by satsana
+      cls: "chfont",
+      name: "Шрифт в постах",
+    },
+  ];
+
+  window.gscript.caretElClassList = "fi fi-rr-caret-down";
+  window.gscript.buttonElClassList = "fi fi-ss-sparkles";
+</script>
+<script src="https://forumstatic.ru/files/001c/56/64/66331.js"></script>
+<!----- addons aggregator by g.vatueil v1.0.2 END -->
+
+<script>
+  ReactionsPlugin.setConfig({
+    includeCategories: ["people", "foods", "activity", "places", "objects"],
+    //  elemSelector: '.post-rating',
+    customEmojis: [
+      {
+        id: "_paw",
+        url: "https://forumupload.ru/uploads/001b/ec/ce/267/192374.png",
+        category: "Wild",
+      },
+      {
+        id: "_bear",
+        url: "https://forumupload.ru/uploads/001b/ec/ce/267/68424.png",
+        category: "Wild",
+      },
+      {
+        id: "_owl1",
+        url: "https://forumupload.ru/uploads/001b/ec/ce/267/51653.png",
+        category: "Wild",
+      },
+      {
+        id: "_owl2",
+        url: "https://forumupload.ru/uploads/001b/ec/ce/267/483512.png",
+        category: "Wild",
+      },
+      {
+        id: "_squi",
+        url: "https://forumupload.ru/uploads/001b/ec/ce/267/266216.png",
+        category: "Wild",
+      },
+      {
+        id: "_batty",
+        url: "https://forumupload.ru/uploads/001b/ec/ce/267/186891.png",
+        category: "Wild",
+      },
+      {
+        id: "_foxy",
+        url: "https://forumupload.ru/uploads/001b/ec/ce/267/448215.png",
+        category: "Wild",
+      },
+      {
+        id: "_hugs",
+        url: "https://forum4.ru/uploads/001b/ec/ce/267/84780.png",
+        category: "Wild",
+      },
+      {
+        id: "_frog",
+        url: "https://forumstatic.ru/files/001b/ec/ce/39427.png",
+        category: "Wild",
+      },
+      {
+        id: "_snek",
+        url: "https://upforme.ru/uploads/001b/ec/ce/267/777479.png",
+        category: "Wild",
+      },
+      {
+        id: "_butf",
+        url: "https://upforme.ru/uploads/001b/ec/ce/267/79648.png",
+        category: "Wild",
+      },
+      {
+        id: "_peng",
+        url: "https://upforme.ru/uploads/001b/ec/ce/267/50560.png",
+        category: "Wild",
+      },
+      {
+        id: "_cher",
+        url: "https://upforme.ru/uploads/001b/ec/ce/267/939414.png",
+        category: "Wild",
+      },
+      {
+        id: "_alpaca",
+        url: "https://upforme.ru/uploads/001b/ec/ce/267/486599.png",
+        category: "Wild",
+      },
+      {
+        id: "_golub",
+        url: "https://upforme.ru/uploads/001b/ec/ce/267/840516.png",
+        category: "Wild",
+      },
+      {
+        id: "_dogge",
+        url: "https://forum4.ru/uploads/001b/ec/ce/267/86344.png",
+        category: "Personal",
+      },
+      {
+        id: "_sadsad",
+        url: "https://forum4.ru/uploads/001b/ec/ce/267/314978.png",
+        category: "Personal",
+      },
+      {
+        id: "_nonono",
+        url: "https://forum4.ru/uploads/001b/ec/ce/267/863026.png",
+        category: "Personal",
+      },
+      {
+        id: "_hungup",
+        url: "https://forum4.ru/uploads/001b/ec/ce/267/603012.png",
+        category: "Personal",
+      },
+      {
+        id: "_fiiiiine",
+        url: "https://forumstatic.ru/files/001b/ec/ce/15038.png",
+        category: "Personal",
+      },
+      {
+        id: "_cat1",
+        url: "https://upforme.ru/uploads/0013/63/cd/2/773045.png",
+        category: "Personal",
+      },
+      {
+        id: "_doggo",
+        url: "https://upforme.ru/uploads/0013/63/cd/2/620369.png",
+        category: "Personal",
+      },
+      {
+        id: "_cat2",
+        url: "https://upforme.ru/uploads/0013/63/cd/2/503795.png",
+        category: "Personal",
+      },
+      {
+        id: "_cat3",
+        url: "https://upforme.ru/uploads/0013/63/cd/2/627617.png",
+        category: "Personal",
+      },
+      {
+        id: "_cutie1",
+        url: "https://forumstatic.ru/files/0013/b7/c4/19804.gif",
+        category: "Cutie",
+      },
+      {
+        id: "_cutie2",
+        url: "https://forumstatic.ru/files/0013/b7/c4/53278.gif",
+        category: "Cutie",
+      },
+      {
+        id: "_cutie3",
+        url: "https://forumstatic.ru/files/0013/b7/c4/27512.gif",
+        category: "Cutie",
+      },
+      {
+        id: "_cutie4",
+        url: "https://forumstatic.ru/files/0013/b7/c4/99426.gif",
+        category: "Cutie",
+      },
+      {
+        id: "_cutie5",
+        url: "https://forumstatic.ru/files/0013/b7/c4/28305.gif",
+        category: "Cutie",
+      },
+      {
+        id: "_cutie6",
+        url: "https://forumstatic.ru/files/0013/b7/c4/34400.gif",
+        category: "Cutie",
+      },
+      {
+        id: "_cutie7",
+        url: "https://forumstatic.ru/files/0013/b7/c4/29045.gif",
+        category: "Cutie",
+      },
+      {
+        id: "_cutie8",
+        url: "https://forumstatic.ru/files/0013/b7/c4/92895.gif",
+        category: "Cutie",
+      },
+      {
+        id: "_cutie9",
+        url: "https://forumstatic.ru/files/0013/b7/c4/48801.gif",
+        category: "Cutie",
+      },
+      {
+        id: "_cutie10",
+        url: "https://forumstatic.ru/files/0013/b7/c4/53227.gif",
+        category: "Cutie",
+      },
+      {
+        id: "_cutie11",
+        url: "https://forumstatic.ru/files/0013/b7/c4/19699.gif",
+        category: "Cutie",
+      },
+      {
+        id: "_cutie12",
+        url: "https://forumstatic.ru/files/0013/b7/c4/90899.gif",
+        category: "Cutie",
+      },
+      {
+        id: "_cutie13",
+        url: "https://forumstatic.ru/files/0013/b7/c4/69845.gif",
+        category: "Cutie",
+      },
+      {
+        id: "_cutie14",
+        url: "https://forumstatic.ru/files/0013/b7/c4/29101.gif",
+        category: "Cutie",
+      },
+      {
+        id: "_cutie15",
+        url: "https://forumstatic.ru/files/0013/b7/c4/64665.gif",
+        category: "Cutie",
+      },
+      {
+        id: "_cutie16",
+        url: "https://forumstatic.ru/files/0013/b7/c4/83017.gif",
+        category: "Cutie",
+      },
+      {
+        id: "_cutie17",
+        url: "https://forumstatic.ru/files/0013/b7/c4/46883.gif",
+        category: "Cutie",
+      },
+      {
+        id: "_cutie18",
+        url: "https://forumstatic.ru/files/0013/b7/c4/94108.gif",
+        category: "Cutie",
+      },
+      {
+        id: "_cutie19",
+        url: "https://forumstatic.ru/files/0013/b7/c4/22980.gif",
+        category: "Cutie",
+      },
+      {
+        id: "_cutie20",
+        url: "https://forumstatic.ru/files/0013/b7/c4/28277.gif",
+        category: "Cutie",
+      },
+      {
+        id: "_emoji1",
+        url: "https://upforme.ru/uploads/001b/ff/2a/3/599491.webp",
+        category: "Emoji",
+      },
+      {
+        id: "_emoji2",
+        url: "https://upforme.ru/uploads/001b/ff/2a/3/35829.webp",
+        category: "Emoji",
+      },
+      {
+        id: "_emoji3",
+        url: "https://upforme.ru/uploads/001b/ff/2a/3/951474.webp",
+        category: "Emoji",
+      },
+      {
+        id: "_emoji4",
+        url: "https://upforme.ru/uploads/001b/ff/2a/3/774801.webp",
+        category: "Emoji",
+      },
+      {
+        id: "_emoji5",
+        url: "https://upforme.ru/uploads/001b/ff/2a/3/588600.webp",
+        category: "Emoji",
+      },
+      {
+        id: "_emoji6",
+        url: "https://upforme.ru/uploads/001b/ff/2a/3/540604.webp",
+        category: "Emoji",
+      },
+      {
+        id: "_emoji7",
+        url: "https://upforme.ru/uploads/001b/ff/2a/3/961014.webp",
+        category: "Emoji",
+      },
+      {
+        id: "_emoji8",
+        url: "https://upforme.ru/uploads/001b/ff/2a/3/799071.webp",
+        category: "Emoji",
+      },
+      {
+        id: "_emoji9",
+        url: "https://upforme.ru/uploads/001b/ff/2a/3/836814.webp",
+        category: "Emoji",
+      },
+      {
+        id: "_emoji10",
+        url: "https://upforme.ru/uploads/001b/ff/2a/3/443120.webp",
+        category: "Emoji",
+      },
+      {
+        id: "_emoji11",
+        url: "https://upforme.ru/uploads/001b/ff/2a/3/85207.webp",
+        category: "Emoji",
+      },
+      {
+        id: "_emoji12",
+        url: "https://upforme.ru/uploads/001b/ff/2a/3/358225.webp",
+        category: "Emoji",
+      },
+      {
+        id: "_emoji13",
+        url: "https://upforme.ru/uploads/001b/ff/2a/3/111609.webp",
+        category: "Emoji",
+      },
+      {
+        id: "_emoji14",
+        url: "https://upforme.ru/uploads/001b/ff/2a/3/744589.webp",
+        category: "Emoji",
+      },
+      {
+        id: "_emoji15",
+        url: "https://upforme.ru/uploads/001b/ff/2a/3/506876.webp",
+        category: "Emoji",
+      },
+      {
+        id: "_emoji16",
+        url: "https://upforme.ru/uploads/001b/ff/2a/3/104585.webp",
+        category: "Emoji",
+      },
+      {
+        id: "_emoji17",
+        url: "https://upforme.ru/uploads/001b/ff/2a/3/752491.webp",
+        category: "Emoji",
+      },
+      {
+        id: "_emoji18",
+        url: "https://upforme.ru/uploads/001b/ff/2a/3/529127.webp",
+        category: "Emoji",
+      },
+      {
+        id: "_emoji19",
+        url: "https://upforme.ru/uploads/001b/ff/2a/3/457564.webp",
+        category: "Emoji",
+      },
+      {
+        id: "_emoji20",
+        url: "https://upforme.ru/uploads/001b/ff/2a/3/802696.webp",
+        category: "Emoji",
+      },
+      {
+        id: "_emoji21",
+        url: "https://upforme.ru/uploads/001b/ff/2a/3/869766.webp",
+        category: "Emoji",
+      },
+      {
+        id: "_emoji22",
+        url: "https://upforme.ru/uploads/001b/ff/2a/3/211537.webp",
+        category: "Emoji",
+      },
+      {
+        id: "_emoji23",
+        url: "https://upforme.ru/uploads/001b/ff/2a/3/168598.webp",
+        category: "Emoji",
+      },
+      {
+        id: "_emoji24",
+        url: "https://upforme.ru/uploads/001b/ff/2a/3/241651.webp",
+        category: "Emoji",
+      },
+      {
+        id: "_emoji25",
+        url: "https://upforme.ru/uploads/001b/ff/2a/3/614982.webp",
+        category: "Emoji",
+      },
+      {
+        id: "_emoji26",
+        url: "https://upforme.ru/uploads/001b/ff/2a/3/624456.webp",
+        category: "Emoji",
+      },
+      {
+        id: "_emoji127",
+        url: "https://upforme.ru/uploads/001b/ff/2a/3/899791.webp",
+        category: "Emoji",
+      },
+    ],
+    includeForumIds: [1, 2, 3, 4, 13, 12, 11, 10],
+  });
+</script>
+
+<!-- Абсолютная ссылка по ПКМ копировать адрес ссылки на дату сообщения by Leraje -->
+<script type="text/javascript">
+  (function () {
+    $("a.permalink").each(function () {
+      let newLink = $(this).attr("href");
+      let winHttp = document.URL.split(":")[0];
+      let newLinkPtp =
+        winHttp + "://" + location.hostname + "/viewtopic.php?pid=";
+      let a = $(this).parents(".post").attr("id").replace(/^p/i, "");
+      newLink = newLinkPtp + a + "#p" + a;
+
+      $(this).contextmenu(function () {
+        this.href = newLink;
+      });
+    });
+  })();
+</script>
+
+<!-- Снять автоматическую галочку удаления всех сообщений © Duka -->
+<script type="text/javascript">
+  if (document.getElementById("pun-deleteuser")) {
+    document.querySelector("input[name=delete_posts]").checked = false;
+  }
+</script>
+
+<div class="site-footer">
+  <div class="banners-content">
+    <a href="https://wh40000.rusff.me/" title="Warhammer 40k" target="_blank"
+      ><img src="https://forumupload.ru/uploads/001c/6b/2b/5/350795.gif"
+    /></a>
+
+    <a href="https://why.rusff.me/" target="_blank"
+      ><img
+        src="https://forumupload.ru/uploads/001c/61/20/17/606277.png"
+        border="0"
+        width="88"
+        height="31"
+    /></a>
+
+    <a href="https://foreveryoung.rolbb.me/"
+      ><img
+        src="https://forumupload.ru/uploads/001a/fb/6a/2/490291.jpg"
+        border="0"
+    /></a>
+
+    <a href="https://sunnycross.ru/"
+      ><img src="https://forumstatic.ru/files/001c/73/be/65745.jpg"
+    /></a>
+
+    <a href="https://honkaistarrail.rusff.me" target="_blank"
+      ><img src="https://forumupload.ru/uploads/001c/60/8c/2/t479705.gif"
+    /></a>
+
+    <a href="https://taleisalie.f-rpg.me/"
+      ><img
+        src="https://i.ibb.co/Z6j3bxRB/69212.jpg"
+        alt="персонажи сказок в современной реальности, рисованные внешности, аниме"
+    /></a>
+
+    <a href="https://urchoice.rolka.me/" target="_blank"
+      ><img
+        src="https://forumstatic.ru/files/000b/09/4f/61730.png"
+        alt="LYL"
+        width="88"
+        height="31"
+    /></a>
+
+    <a href="https://arkhaim.su/index.php" target="_blank"
+      ><img
+        src="https://forumstatic.ru/files/001b/8c/87/29818.png"
+        width="88"
+        height="31"
+    /></a>
+
+    <a href="https://edgezone.rusff.me/" target="_blank"
+      ><img src="https://i.imgur.com/ub4UiCW.gif"
+    /></a>
+
+    <a href="https://drinkbutterbeer.rusff.me" target="_blank"
+      ><img src="https://forumstatic.ru/files/001a/2e/af/91806.png"
+    /></a>
+    <a href="https://execute.rusff.me/" target="_blank"
+      ><img
+        src="https://forumupload.ru/uploads/001b/f1/3b/2/979947.png"
+        alt="Execute"
+        width="88"
+        height="31"
+    /></a>
+    <a href="https://altcross.rusff.me/" target="_blank"
+      ><img
+        src="https://i.imgur.com/SiFU6wW.png"
+        title="alternative crossover"
+        border="0"
+        width="88"
+        height="31"
+    /></a>
+    <a
+      href="https://metaverse.rusff.me/"
+      target="_blank"
+      title="СПОСОБНОСТИ, ГЕРОИКА, МАГИЯ, МУЛЬТИВЕРС"
+      ><img src="https://upforme.ru/uploads/001c/23/f5/2/48057.gif"
+    /></a>
+
+    <a href="https://yourworld.f-rpg.me/"
+      ><img
+        src="https://forumstatic.ru/files/001c/60/80/70356.jpg?v=1"
+        title="Whisper"
+        alt="Whisper"
+    /></a>
+    <a href="https://liesoftales.f-rpg.me/"
+      ><img
+        src="https://forumupload.ru/uploads/001c/7d/d4/20/106672.png"
+        title="Lies of tales: городское фэнтези, рисованные внешности"
+        alt="Lies of tales: городское фэнтези, рисованные внешности"
+        target="_blank"
+    /></a>
+    <a
+      href="https://crystalcage.rusff.me/"
+      title="Wizarding World, 1980, Dark!Ay, тоталитаризм"
+      target="_blank"
+      ><img src="https://forumstatic.ru/files/001c/76/cd/52012.png"
+    /></a>
+    <a title="Война Судеб" href="https://warfates.rusff.me" target="_blank"
+      ><img
+        src="https://forumupload.ru/uploads/001b/7f/e5/2/145506.png"
+        alt="Война Судеб"
+        width="88"
+        height="31"
+    /></a>
+
+    <a href="http://onlinecross.ru" target="_blank"
+      ><img
+        src="https://forumupload.ru/uploads/001b/1a/5a/29/680577.gif"
+        border="0"
+        width="88"
+        height="31"
+    /></a>
+
+    <a href="https://genshineclipse.com/" target="_blank"
+      ><img src="https://forumupload.ru/uploads/001b/df/32/147/26957.gif"
+    /></a>
+
+    <a href="https://badger.rolevaya.ru/" target="_blank">
+      <img
+        src="https://forumupload.ru/uploads/001c/15/dc/2/672198.png"
+        border="0"
+        alt="#барсук"
+    /></a>
+
+    <a href="https://kicks-and-giggles.ru/" target="_blank"
+      ><img
+        src="https://forumupload.ru/uploads/0019/e7/0f/2/438078.jpg"
+        width="88"
+        height="31"
+        border="0"
+    /></a>
+
+    <a href="//urgestalt.rusff.me/" target="_blank">
+      <img
+        src="https://forumstatic.ru/files/001c/29/61/82388.jpg"
+        width="88"
+        height="31"
+        border="0"
+        alt="close ur gestalt"
+    /></a>
+
+    <a href="http://yellowcross.f-rpg.me/" target="_blank"
+      ><img
+        src="https://forumupload.ru/uploads/001c/48/df/2/95048.png"
+        border="0"
+        width="88"
+        height="31"
+    /></a>
+
+    <a href="https://randomcross.f-rpg.me/" target="_blank"
+      ><img
+        src="https://i.imgur.com/ddSNFKZ.png"
+        border="0"
+        width="88"
+        height="31"
+    /></a>
+
+    <a href="https://oldshadows.rusff.me/" target="blank"
+      ><img src="https://forumupload.ru/uploads/001c/03/d9/2/629753.png"
+    /></a>
+
+    <a href="https://crossfeeling.rusff.me/" target="_blank">
+      <img
+        src="https://forumupload.ru/uploads/0015/e5/b7/3090/672618.png"
+        title="crossfeeling"
+        border="1"
+        width="88"
+        height="31"
+    /></a>
+
+    <a href="https://notacross.ru/" target="_blank">
+      <img
+        src="https://forumstatic.ru/files/001c/57/ad/89952.gif"
+        border="0"
+        alt="notacross"
+    /></a>
+
+    <a href="https://exlibrisforlife.ru" target="_blank"
+      ><img src="https://i.imgur.com/1JHaL3K.png" alt="ex libris"
+    /></a>
+
+    <a href="https://itisanewworld.rusff.me/"
+      ><img src="https://forumstatic.ru/files/001b/0f/ee/83990.jpg" border="0"
+    /></a>
+
+    <a href="https://wolfauf.rusff.me/" target="_blank"
+      ><img
+        src="https://i.imgur.com/LCSHzDw.gif"
+        alt="Execute"
+        width="88"
+        height="31"
+    /></a>
+
+    <a href="https://prophecy.rolbb.me"
+      ><img
+        alt=" Magic War. Prophecy"
+        src="https://forumupload.ru/uploads/001b/e6/91/6/157746.gif"
+        border=""
+    /></a>
+
+    <a href="https://tvd25.rusff.me" target="_blank"
+      ><img src="https://forumupload.ru/uploads/001c/5e/11/5/699629.gif"
+    /></a>
+
+    <a href="https://circuscross.rusff.me" target="_blank" title="circus cross"
+      ><img src="https://forumupload.ru/uploads/001c/5b/2f/2/154957.png"
+    /></a>
+
+    <a href="https://dos.f-rpg.me/" target="_blank"
+      ><img src="https://i.imgur.com/BQboz9c.png"
+    /></a>
+
+    <a href="https://knowhere.rusff.me/" target="_blank"
+      ><img src="https://forumupload.ru/uploads/001c/1e/c3/2/788017.gif"
+    /></a>
+
+    <a href="http://rialan.rusff.me" target="_blank">
+      <img
+        src="https://upforme.ru/uploads/001c/52/36/19/859610.png"
+        title="RIALAN: doomed to die"
+    /></a>
+
+    <a href="http://mistoua.f-rpg.me/">
+      <img
+        src="https://upforme.ru/uploads/001b/da/73/2/853120.gif"
+        title="MISTO.UA"
+        border="1"
+        width="88"
+        height="31"
+    /></a>
+
+    <a href="https://breakout.rusff.me/">
+      <img src="https://forumstatic.ru/files/001c/2a/d4/18938.png"
+    /></a>
+
+    <a href="https://miamiclub.ru" target="_blank">
+      <img
+        src="https://forumstatic.ru/files/001b/c7/a6/71089.gif"
+        border="0"
+        alt="MIAMI CLUB"
+    /></a>
+
+    <a href="http://sayron.rolka.me/"
+      ><img
+        src="https://forumstatic.ru/files/001c/33/49/89323.png"
+        alt="Сайрон: Эпоха Рассвета"
+    /></a>
+
+    <a href="https://godstrust.rusff.me//" target="_blank"
+      ><img src="https://forumupload.ru/uploads/001c/38/7d/8/134741.png"
+    /></a>
+  </div>
+</div>
+
+<!----- скрипт маски профиля -------------->
+<script src="https://forumstatic.ru/files/0017/95/29/89289.js"></script>
+<script>
+  hvScriptSet.addMask({
+    guestAccess: ["архив игровой", "архив эпизодов", "архив общий"],
+    forumAccessExtended: {
+      "архив игровой": ["Принятые"],
+      "архив эпизодов": ["Принятые"],
+      акции: ["Принятые"],
+      фандом: ["Принятые"],
+      межфандом: ["Принятые"],
+      альтернатива: ["Принятые"],
+      "завершенные эпизоды": ["Принятые"],
+      флудовая: ["Принятые"],
+      "кастовые темы": ["Принятые"],
+      "личные темы": ["Принятые"],
+      активности: ["Принятые"],
+    },
+    changeList: {
+      pafld1: {
+        title: "фандом",
+        description: "на английском лапслоком",
+        tag: "fd",
+        class: "pa-fld3",
+        defaultCode: "",
+        type: "text",
+      },
+      pafld2: {
+        title: "личное звание",
+        description: "",
+        tag: "lz",
+        class: "pa-fld2",
+        defaultCode:
+          '<a href="ссылка" class="lz1">имя на русском лапслоком</a>текст <a href="ссылка на пару" class="lz2">имя пары</a>, текст.',
+        type: "html",
+      },
+    },
+    userFields: [
+      "pa-author",
+      "pa-title",
+      "pa-avatar",
+      "pa-fld3",
+      "pa-fld2",
+      "pa-fld1",
+      "pa-posts",
+      "pa-respect",
+      "pa-online",
+      "pa-awards",
+      "pa-hidePunk",
+    ],
+  });
+</script>
+
+<!----------- Ссылка на авторский пост в цитате // v.3 © Alex_63 ------------->
+<!----------- Апдейт для тихих цитат - Casey ------------->
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentTopicId = Number(urlParams.get("id"));
+    const silentQuoteTopics = [1826];
+    const isSilent = silentQuoteTopics.includes(currentTopicId);
+
+    // Переопределяем поведение кнопки цитирования
+    if (isSilent) {
+      // Находим все кнопки цитирования
+      document
+        .querySelectorAll("#pun-viewtopic .pl-quote > a")
+        .forEach((link) => {
+          link.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            const postEl = this.closest(".post");
+            let text;
+
+            // Проверяем, выделил ли пользователь часть текста
+            const selection = window.getSelection();
+            if (
+              selection &&
+              selection.rangeCount > 0 &&
+              postEl.contains(selection.anchorNode) &&
+              postEl.contains(selection.focusNode)
+            ) {
+              text = selection.toString().trim();
+            }
+
+            // Если выделения нет — берём весь текст поста
+            if (!text) {
+              text = postEl.querySelector(".post-content").innerText.trim();
+            }
+
+            const textarea = document.querySelector("#main-reply");
+            if (textarea) {
+              textarea.value += `[block=silent-quote]${text}[/block]\n`;
+              textarea.focus();
+            }
+          });
+        });
+    } else {
+      // Обычная логика вставки ID в ссылку quote
+      $("#pun-viewtopic .pl-quote>a").each(function () {
+        $(this).attr(
+          "href",
+          $(this)
+            .attr("href")
+            .replace("('", "('#" + $(this).parents(".post").attr("id") + ",")
+        );
+      });
+    }
+
+    // cite внутри уже вставленных цитат
+    $('.quote-box>cite:contains("#")').each(function () {
+      const cntq = $(this).text();
+      const pid = cntq.split(",")[0];
+      const lnkq = '<a class="qc-post-link" href="';
+
+      if (isSilent) {
+        $(this).remove();
+      } else {
+        if ($(".post" + pid).length) {
+          $(this).html(lnkq + pid + '">' + cntq.split(",")[1] + "</a>");
+        } else {
+          $(this).html(
+            lnkq +
+              "/viewtopic.php?pid=" +
+              pid.split("#p")[1] +
+              pid +
+              '">' +
+              cntq.split(",")[1] +
+              "</a>"
+          );
+        }
+      }
+    });
+  });
+</script>
+
+<!----- fix qoutes on iOS by g.vatueil---->
+<script type="text/javascript">
+  if (window.gscript == null) window.gscript = {};
+
+  window.gscript.quoteText = "";
+  window.gscript.getQuoteText = function () {
+    if (window.getSelection)
+      window.gscript.quoteText = window.getSelection().toString();
+    else if (document.selection && document.selection.createRange)
+      window.gscript.quoteText = document.selection.createRange().text;
+  };
+
+  window.gscript.quote = function (e, t, i) {
+    var n = window.gscript.quoteText;
+    if ("" == n || void 0 === n || null == n) {
+      var a = document.getElementById("p" + t + "-content");
+      if ($.browser.msie)
+        (o = document.body.createTextRange()).moveToElementText(a),
+          o.select(),
+          (n = document.selection.createRange().text);
+      else if ($.browser.mozilla) {
+        var o,
+          r = window.getSelection();
+        (o = document.createRange()).selectNodeContents(a),
+          r.removeAllRanges(),
+          r.addRange(o),
+          (n = window.getSelection().toString());
+      } else
+        (n = ""),
+          $("#p" + t + "-content > p").each(function (e) {
+            (p = $(this)
+              .html()
+              .replace(/<br([\/ ]){0,2}>/gi, "\n")),
+              (el = $('<div style="display:none"></div>')),
+              $(el).append(p),
+              (n += $(el).text() + "\n\n");
+          }),
+          (n = n.replace(/\r\n/g, "\n").replace(/\n\n\n/g, "\n\n"));
+      if ("" == n || void 0 === n || null == n)
+        return void FORUM.get("editor.quote.quote_fail()");
+    }
+    if ($.browser.mozilla && -1 != n.indexOf("http://")) {
+      var l = new Array(),
+        s = "";
+      $("#p" + t + "-content img").each(function (e) {
+        (s = $(this).attr("src")),
+          (l.length > 0 && -1 != l.join(",").indexOf(s)) ||
+            ((n = n.replace(new RegExp(s, "g"), "[img]" + s + "[/img]")),
+            l.push(s));
+      });
+    }
+    insert('[quote="' + e + '"]' + $.trim(n) + "[/quote]\n");
+  };
+
+  window.quote = window.gscript.quote;
+
+  document.addEventListener("DOMContentLoaded", () => {
+    if (window.FORUM.topic) {
+      $("#pun-viewtopic .pl-quote>a").each(function () {
+        $(this).attr("onmousedown", "window.gscript.getQuoteText();");
+      });
+    }
+  });
+</script>
+
+<!----- добавление пункта новые сообщения -------------->
+<script type="text/javascript">
+  if (GroupID != 3) {
+    $("#pun-ulinks .container").prepend(
+      '<li class="item1"><a href="/search.php?action=show_new">Новые сообщения</a></li>'
+    );
+  }
+</script>
+
+<!-- scroll top-bottom buttons by g.vatueil -->
+
+<div class="scroll-buttons hidden">
+  <button class="scroll-button to-top" data-callback="scrollToTop">
+    <i class="fi fi-rr-arrow-small-up"></i>
+  </button>
+  <button class="scroll-button to-bottom" data-callback="scrollToBottom">
+    <i class="fi fi-rr-arrow-small-down"></i>
+  </button>
+</div>
+
+<script>
+  $(function () {
+    var targetBottom = document.querySelector("#html-footer");
+    var targetTop = document.querySelector("#pun-status");
+
+    var scrollToTopBtn = document.querySelector(".scroll-button.to-top");
+    var scrollToBottomBtn = document.querySelector(".scroll-button.to-bottom");
+    var buttonsWrapper = document.querySelector(".scroll-buttons");
+    var rootElement = document.documentElement;
+
+    function callback(entries, observer) {
+      entries.forEach((entry) => {
+        let target = entry.target;
+        if (targetBottom.isEqualNode(entry.target)) {
+          if (entry.isIntersecting) {
+            scrollToBottomBtn.classList.add("hidden");
+          } else {
+            scrollToBottomBtn.classList.remove("hidden");
+          }
+        }
+        if (targetTop.isEqualNode(entry.target)) {
+          if (entry.isIntersecting) {
+            scrollToTopBtn.classList.add("hidden");
+          } else {
+            scrollToTopBtn.classList.remove("hidden");
+          }
+        }
+      });
+    }
+
+    function scrollToTop() {
+      rootElement.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+
+    function scrollToBottom() {
+      rootElement.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+
+    scrollToTopBtn.addEventListener("click", scrollToTop);
+    scrollToBottomBtn.addEventListener("click", scrollToBottom);
+
+    let observer = new IntersectionObserver(callback);
+    observer.observe(targetBottom);
+    observer.observe(targetTop);
+
+    if (window.matchMedia("(max-device-width: 767px)").matches) {
+      window.onscroll = function () {
+        buttonsWrapper.classList.remove("hidden");
+      };
+      window.onscrollend = function () {
+        setTimeout(() => {
+          buttonsWrapper.classList.add("hidden");
+        }, 1000);
+      };
+    } else {
+      buttonsWrapper.classList.remove("hidden");
+    }
+  });
+</script>
+
+<!-- scroll top-bottom buttons END -->
+
+<!----- регулировка размера шрифта в постах © Alex_63
+    <script type="text/javascript" src="https://forumstatic.ru/files/0015/c4/3f/31001.js"></script>  ---------------->
+
+<!----- запятая после ника ---------------->
+<script type="text/javascript">
+  function to(username) {
+    insert("[b]" + username + "[/b]" + ", ");
+  }
+</script>
+
+<!----- кликабельность ника в постах Гостя ---------------->
+<script>
+  $(".post[data-group-id=3]")
+    .find(".pa-author")
+    .html(function () {
+      return this.innerHTML.replace(
+        /(<.+>)(.+)$/,
+        "$1<a href=\"javascript:to('$2')\">$2</a>"
+      );
+    });
+</script>
+
+<!----- Замена дефисов на тире fixed by g.vatueil---->
+<script>
+  (function () {
+    function rep(str, p1, offset, s) {
+      return ">" + p1.replace(/(\s+|^|>)-{1,3}(\s)/g, "$1&mdash;$2") + "<";
+    }
+    $(".post-content p").each(function () {
+      $(this).html(
+        ("</>" + $(this).html() + "</>").replace(/>([^<>]+)</gm, rep)
+      );
+    });
+  })();
+</script>
+
+<!----- восстановление последнего поста при утере by Человек-Шаман -->
+<script>
+  $(document).ready(function () {
+    $("#addition-area").append(function () {
+      return $("<div>Восстановить последний пост</div>").click(restoreLastPost);
+    });
+    function restoreLastPost() {
+      $("#main-reply").val(localStorage.ReservePost);
+    }
+  });
+</script>
+<!--конец-->
+
+<!-- Скрыть рекорд из статистики © rps // мод. © max, the murderer! -->
+<script type="text/javascript">
+  var onlineLists = document.querySelectorAll(
+    "#onlinelist:not(.statistics) div"
+  );
+  onlineLists.forEach(function (list) {
+    list.innerHTML =
+      list.innerHTML.substring(0, list.innerHTML.indexOf(";")) +
+      list.innerHTML.substring(list.innerHTML.indexOf(")"));
+  });
+</script>
+
+<!----- универсальный скрипт замены -------------->
+<script>
+  function UniverСhange(selektor, changed, substitute) {
+    $(selektor).each(function () {
+      if ($(this).parent().html() != null) {
+        if ($(this).parent().html().indexOf(changed) != -1) {
+          $(this)
+            .parent()
+            .html($(this).parent().html().replace(changed, substitute));
+        }
+      }
+    });
+  }
+  UniverСhange("li.pa-respect", "Уважение", "огни");
+  UniverСhange("li.pa-posts", "Сообщений", "следы");
+  UniverСhange(".subforums", "Подфорумы ", "");
+  UniverСhange("#navadmin a span", "Администрирование", "Амс");
+  UniverСhange("#pun-stats h2 span", "Статистика форума", "Statistic");
+  UniverСhange("li.onlinelist a", "Активны", "Здесь, на неведомых тропинках");
+  UniverСhange("li.users_24h a", "Посетили за сутки", "Тени в чаще");
+  UniverСhange(
+    ".subscribelink a",
+    "Подписаться и отслеживать тему",
+    "Подписаться"
+  );
+  UniverСhange(".statscon .container .item1 span", "Всего тем", "Темы");
+  UniverСhange(
+    ".statscon .container .item2 span",
+    "Всего сообщений",
+    "Сообщения"
+  );
+  UniverСhange(
+    ".statscon .container .item3 span",
+    "Зарегистрированных пользователей",
+    "Игроков"
+  );
+  UniverСhange(
+    ".statscon .container .item4 span",
+    "Последним зарегистрировался",
+    "Привет"
+  );
+  UniverСhange(
+    "#addition-area div:nth-child(11) span",
+    "HTML в сообщениях",
+    "HTML от Alex63"
+  );
+  //На следущей строке можно добавить еще запрос
+</script>
+
+<!----- репутация на лайки -------------->
+<script type="text/javascript">
+  var nWRD = "огни";
+  function setRespecNew() {
+    $(".pa-respect a[href^='/respect.php?']").each(function () {
+      $(this).html(nWRD);
+    });
+  }
+  function TestRespect() {
+    if ($(".pa-respect:contains('Репутация')").length) {
+      setRespecNew();
+      return;
+    } else {
+      timerID = setTimeout("TestRespect()", 110);
+      return;
+    }
+  }
+  TestRespect();
+</script>
+
+<!----- подсказки -------------->
+<script>
+  $(".pl-quote").attr("title", "Цитировать");
+  $(".pl-edit").attr("title", "Редактировать");
+  $(".pl-delete a").attr("title", "Удалить");
+  $(".pl-email.profile").attr("title", "Профиль");
+  $(".pl-email.pm").attr("title", "Личное сообщение");
+  $(".pl-email.email").attr("title", "E-mail");
+  //$('.pa-posts').attr('title', 'Сообщения');
+  $(".pa-fld1").attr("title", "Мои богатства");
+  $(".pa-respect").attr("title", "Тебя ценят");
+  $(".pa-positive").attr("title", "Ваши оценки");
+  $("#button-sticker").attr("title", "Стикеры");
+
+  $("#navindex a").attr("data-hover", "Форум");
+  $("#navuserlist a").attr("data-hover", "Участники");
+  $("#navsearch a").attr("data-hover", "Поиск");
+  $("#navprofile a").attr("data-hover", "Профиль");
+  $("#navpm a").attr("data-hover", "Сообщения");
+  $("#navadmin a").attr("data-hover", "Амс");
+  $("#navregister a").attr("data-hover", "Регистрация");
+  $("#navlogin a").attr("data-hover", "Войти");
+  $("#navlogout a").attr("data-hover", "Выход");
+  $("#navpr_1 a").attr("data-hover", "Реклама");
+  $("#navpr_2 a").attr("data-hover", "Читатель");
+</script>
+
+<!----- Отключение "Пожаловаться", "Поделиться", тегов -------------->
+<script type="text/javascript">
+  RusffCore.sets.show_reportBtn = 0;
+  RusffCore.sets.tags = false;
+  RusffCore.sets.share = false;
+</script>
+
+<!----- Отключить функцию "Вложения" -------------->
+<script type="text/javascript">
+  RusffCore.sets.files.button = false;
+</script>
+
+<!----- аватар гостя и по умолчанию -------------->
+<script type="text/javascript">
+  var DefAvtr = "//forumstatic.ru/files/001c/7f/71/85998.png"; //Ссылка на аватар по умолчанию
+  var GuestAvtr = "//forumstatic.ru/files/001c/7f/71/85998.png"; //Ссылка на аватар для Гостя
+
+  $("#pun-viewtopic,#pun-messages")
+    .find(".pa-title")
+    .each(function () {
+      var b = DefAvtr;
+      if ($(this).text() == "Гость") {
+        b = GuestAvtr;
+      }
+      var s =
+        '<li class="pa-avatar item2"><img class="defavtr" src="' +
+        b +
+        '" alt="Аватар"/></li>';
+      if ($(this).parent().find(".pa-avatar").html() == null) $(this).after(s);
+    });
+
+  $('#profile-left strong:contains("Нет аватара")')
+    .parent()
+    .html('<div><img src="' + DefAvtr + '"/></div>');
+</script>
+
+<!----- Скрипт взаимной рекламы -------------->
+<script>
+  function getUrlParameterByName(e, t) {
+    e = e.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var r = new RegExp("[\\?&]" + e + "=([^&#]*)").exec(t);
+    return null == r ? "" : decodeURIComponent(r[1].replace(/\+/g, " "));
+  }
+  function getRandomInt(e, t) {
+    return Math.floor(Math.random() * (t - e)) + e;
+  }
+  function copyAdvertisingToClipboard(e, t) {
+    e.preventDefault();
+    var r = $(t).closest(".post").find(".permalink").attr("href"),
+      n = $("<textarea>");
+    $("body").append(n);
+    var i =
+      advertiseCodes[getRandomInt(0, advertiseCodes.length)] +
+      "[url=" +
+      r +
+      "]Обратная реклама[/url]";
+    n.val(i).select(), document.execCommand("copy"), n.remove();
+  }
+  function addAdvertiseLink(e) {
+    getUrlParameterByName("id", window.location.href) == e &&
+      $(".post").each(function () {
+        var e = $("<li>")
+          .attr("class", "pl-advlink")
+          .append(
+            '<a href="#" onclick="copyAdvertisingToClipboard(event, this);">Взаимная реклама</a>'
+          );
+        $(this).find(".post-links ul").append(e);
+      });
+  }
+
+  var advertiseCodes = [
+    "[align=center][url=https://wildcross.rusff.me/][img]https://i.imgur.com/6IWdkVt.png[/img][/url] [size=10][url=https://wildcross.rusff.me/viewtopic.php?id=2][color=black]гостевая[/color][/url] × [url=https://wildcross.rusff.me/viewtopic.php?id=7][color=black]нужные персонажи[/color][/url][/size][/align]",
+  ];
+  addAdvertiseLink(576);
+</script>
+
+<!-- Загрузчик изображений в форме ответа © 2018 Alex_63 -->
+<script>
+  FORUM.defaultHost = "imgur"; // Хостинг по умолчанию: 'uploads'  'imgur' 'imageban'
+</script>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="https://forumstatic.ru/files/0015/c4/3f/18002.css"
+/>
+<script
+  type="text/javascript"
+  src="https://forumstatic.ru/files/0015/c4/3f/18001.js"
+></script>
+
+<!--- Dice Roller BEGIN (c) Spiritus Tergi / edited by vatueil, ч2 в хтмл-низ -->
+<template id="dice-box-template">
+  <div class="dice-box">
+    <p>
+      <span class="roll-dice"></span>
+      <span class="roll-value"></span>
+    </p>
+    <p class="roll-reason"></p>
+    <p class="roll-result"></p>
+  </div>
+</template>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/2.4.4/seedrandom.min.js"></script>
+<script>
+  diceResults = [{ max: 1000 }];
+  isTagged = document.querySelector("#pun").innerHTML.indexOf("[dice]") >= 0;
+
+  if (isTagged) {
+    diceRoller = new DiceRoller(diceResults);
+    diceRoller.initDiceBoxes();
+  }
+</script>
+<!--- Dice Roller END -->
+
+<!--- Dice Roller Form BEGIN -->
+<form id="dice-form" class="container hidden" autocomplete="off">
+  <div class="dice-form-setup">
+    <label
+      ><span>Кубиков</span>
+      <input type="text" name="count" maxlength="3" value="1"
+    /></label>
+    <label
+      ><span>Граней</span>
+      <input type="text" name="sides" maxlength="3" value="20"
+    /></label>
+    <label
+      ><span>Бонус</span>
+      <input type="text" name="bonus" maxlength="3" value="0"
+    /></label>
+  </div>
+  <div class="dice-form-action">
+    <label
+      ><span>Действие</span>
+      <textarea name="reason" cols="10" rows="5"></textarea>
+    </label>
+  </div>
+  <button type="submit">Вставить</button>
+</form>
+
+<script>
+  replyForm = document.getElementById("post");
+  diceForm = document.getElementById("dice-form");
+  diceButtonString =
+    '<td id="button-dice" title="Форма Кубиков" class="hidden"><img src="/i/blank.gif"></td>';
+
+  function handleDiceFormSubmit(event) {
+    event.preventDefault();
+    let tagArguments = [];
+
+    for (let control of event.target.elements)
+      if (control.tagName != "BUTTON") {
+        tagArguments.push(control.name + " = " + control.value);
+      } else {
+        document.getElementById("dice-form").classList.toggle("hidden");
+      }
+
+    replyForm["main-reply"].value +=
+      "\n[dice]" + tagArguments.join(" | ") + "[/dice]";
+  }
+
+  function handleDiceButtonClick(event) {
+    document.getElementById("dice-form").classList.toggle("hidden");
+  }
+
+  if (replyForm != null) {
+    replyForm
+      .querySelector(".fs-box.hashelp #tags")
+      .insertAdjacentElement("beforeend", diceForm);
+    diceForm.addEventListener("submit", handleDiceFormSubmit);
+
+    let row = replyForm.querySelector("#form-buttons tr");
+    row.innerHTML += diceButtonString;
+
+    let diceButton = document.getElementById("button-dice");
+    diceButton.classList.remove("hidden");
+    diceButton.addEventListener("click", handleDiceButtonClick);
+  }
+</script>
+<!--- Dice Roller Form END -->
+
+<!-- ОНЛАЙН © Alex_63 -------------->
+<script type="text/javascript">
+  $(".post-author:not(.online)").find(".pa-title").addClass("offline");
+  $(".post-author.online").find(".pa-title").addClass("online");
+  $(".post").each(function () {
+    var PostAuthorLogin = $(this).find("li.pa-title>a").text();
+    var activeTime = $(this).find(".pa-online").text().split("Активен")[1];
+    var offTime = $(this)
+      .find(".pa-last-visit")
+      .text()
+      .split("Последний визит:")[1];
+    $(this)
+      .find(".post-author.online .pa-avatar")
+      .after('<span class="indOnline" title="ищет вдохновение " /></span>');
+    //  $(this).find('.post-author:not(.online) .pa-avatar').after('<span class="indOffline" title="спит" /></span>');
+  });
+</script>
+
+<!-- Перемешать акции в шапке форума -->
+<script>
+  $(document).ready(function () {
+    $(".act-content").each(function () {
+      var block = $(this);
+      var banners = block.find("a").toArray(); // преобразуем в массив для сортировки
+
+      banners.sort(function () {
+        return Math.random() - 0.5;
+      });
+
+      var visible = banners.slice(0, 3);
+      var hidden = banners.slice(3);
+
+      $(visible).appendTo(block).show();
+      block.removeClass("hidden");
+      $(hidden).appendTo(block).hide(); // при желании можно не append, если они уже там
+    });
+  });
+</script>
+
+<!-- Перемешать баннеры при перезагрузке © TheBanana, max, the murderer! 2022 -->
+<script>
+  $(document).ready(function () {
+    $(".banners-content").each(function () {
+      var block = $(this);
+      var banners = block.children("a").not(".static");
+      $(banners)
+        .sort(function (a, b) {
+          return -1 + Math.random() * 2;
+        })
+        .appendTo(block)
+        .show();
+    });
+  });
+</script>

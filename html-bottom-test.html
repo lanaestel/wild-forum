@@ -1,0 +1,248 @@
+<script id="efof">
+  /** СКРИПТ ИЗМЕНЕНИЯ БАЛАНСА СО СТРАНИЦЫ БАНКА
+	https://github.com/4eDo/mybb/blob/main/edit_field_on_fly/readme.md
+ 	Версия от 2024-11-01
+**/
+  const FIELD_ID_FOR_EDIT = "fld1";
+  const ADD_CACHE_TEXT = "Изменение баланса";
+  const COLOR_INPUT_TEXT = "color: #000000 !important";
+  const ALLOWED_TOPICS = ["12", "650"]; // С кавычками
+  const ALLOWED_GROUPS = [1, 2]; // БЕЗ кавычек
+
+  const OPERATIONS = [
+    // Наименование опции, коэффициент, в каких топиках есть (через пробел) или all
+    ["Начисление", "1", "all"],
+    ["Списание", "-1", "all"],
+  ];
+  const ROUND = 0; // Если допускается дробный баланс, укажите кол-во знаков после запятой
+  // if 0 then 0.5555555 -> 0		1.999 -> 1
+  // if 1 then 0.5555555 -> 0.6
+  // if 2 then 0.5555555 -> 0.56
+  // if 3 then 0.5555555 -> 0.556
+
+  const USE_WRAPPER = true; // false, если не хотите, чтобы сообщение как-то помечалось
+
+  // шаблон, по которому оборачивается пост.
+  // {{ADMIN_NAME}} - имя админа
+  // {{CACHE_BEFORE}} - баланс до изменения
+  // {{CACHE_AFTER}} - баланс после изменения
+  // const WRAPPER_START = `[spoiler="+ ({{ADMIN_NAME}})"]`;
+  const WRAPPER_START = `[spoiler="[table layout=auto width=100][tr]
+[td][b]ОБРАБОТАНО[/b] ({{ADMIN_NAME}})[/td]
+[td][b]Было[/b]: {{CACHE_BEFORE}}[/td]
+[td][b]Стало[/b]: {{CACHE_AFTER}}[/td]
+[/tr]
+[/table]"]`;
+  const WRAPPER_END = `[/spoiler]`;
+
+  const ADMIN_NAMES = {
+    // id, ник для подстановки
+    28: "даня",
+    33: "гера",
+    32: "никита",
+    105: "Хайтам",
+  };
+
+  var currTopic_efof = new URLSearchParams(window.location.search).get("id");
+  $(document).ready(function () {
+    if (
+      ALLOWED_GROUPS.includes(GroupID) &&
+      ALLOWED_TOPICS.includes(currTopic_efof)
+    ) {
+      function t(t, e, n) {
+        const o = {};
+        return (
+          $.ajax({
+            url: t,
+            method: "get",
+            async: !1,
+            success: function (t) {
+              let e = new DOMParser()
+                .parseFromString(t, "text/html")
+                .querySelector(n);
+              if (e) {
+                const t = new FormData(e);
+                for (const [e, n] of t.entries()) o[e] = n;
+                return o;
+              }
+              throw new Error(`Форма '${n}' не найдена.`);
+            },
+            error: function (e, n, o) {
+              throw (
+                (console.error("Ошибка при выполнении AJAX-запроса:", n, o),
+                new Error(`Ошибка при загрузке страницы ${t} : ${n}`))
+              );
+            },
+          }),
+          o
+        );
+      }
+      async function e(t, e) {
+        let n = new FormData();
+        for (let t in e) n.append(t, e[t]);
+        try {
+          const e = await fetch(t, {
+            method: "POST",
+            body: (function (t) {
+              const e = [];
+              for (const [n, o] of t.entries()) e.push({ name: n, value: o });
+              const n = $("<form>");
+              return (
+                $.each(e, function (t, e) {
+                  n.append(
+                    $("<input>").attr({
+                      type: "hidden",
+                      name: e.name,
+                      value: e.value,
+                    })
+                  );
+                }),
+                n.serialize2()
+              );
+            })(n),
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          });
+          return (
+            !!e.ok ||
+            (console.error("Ошибка отправки данных:", e.statusText), !1)
+          );
+        } catch (t) {
+          return console.error("Ошибка отправки данных:", t), !1;
+        }
+      }
+      console.group("4eDo script edit_field_on_fly "),
+        console.log(
+          "%c~~ Скрипт для быстрого начисления/списания средств. %c https://github.com/4eDo ~~",
+          "font-weight: bold;",
+          "font-weight: bold;"
+        ),
+        console.groupEnd(),
+        (function () {
+          const n = $(".post-rating");
+          let o = 0;
+          n.each(function () {
+            const n = $(this),
+              r = n.closest("[data-user-id]"),
+              s = r.data("user-id"),
+              l = r.attr("id").slice(1),
+              i = $("<div></div>"),
+              a = $('<input type="button" />')
+                .addClass("edit_on_fly button preview")
+                .val(ADD_CACHE_TEXT)
+                .css("cursor", "pointer")
+                .on("click", function () {
+                  p.show();
+                }),
+              c = $("<select></select>")
+                .attr("id", `select-type-${o}`)
+                .on("change", function () {
+                  d.toggle("0" !== c.val());
+                });
+            c.append('<option value="0">Не выбрано</option>');
+            for (let t = 0; t < OPERATIONS.length; t++)
+              ("all" == OPERATIONS[t][2] ||
+                OPERATIONS[t][2].split(" ").includes(currTopic_efof)) &&
+                c.append(
+                  `<option value="${OPERATIONS[t][1]}">${OPERATIONS[t][0]} (${
+                    OPERATIONS[t][1] > 0 ? "+" : ""
+                  }${OPERATIONS[t][1]})</option>`
+                );
+            const p = $("<p>Тип операции: </p>").hide().append(c),
+              u = $('<input type="number" min="0" step="1" />')
+                .attr("style", COLOR_INPUT_TEXT)
+                .attr("id", `input-count-${o}`)
+                .on("input", function () {
+                  f.toggle(u.val() > 0);
+                }),
+              d = $("<p>Количество: </p>").hide().append(u),
+              f = $('<input type="button" />')
+                .addClass("edit_on_fly button submit")
+                .val("Выполнить")
+                .hide()
+                .css("cursor", "pointer")
+                .on("click", function () {
+                  const n = c.val(),
+                    o = u.val();
+                  f.prop("disabled", !0),
+                    p.css("opacity", "0.5").css("pointer-events", "none"),
+                    d.css("opacity", "0.5").css("pointer-events", "none"),
+                    f.css("opacity", "0.5").css("pointer-events", "none"),
+                    (async function (n, o, r, s, l) {
+                      try {
+                        var i = document.URL;
+                        let a = "/profile.php?section=fields&id=" + r,
+                          c = "#profile8",
+                          p = await t(a, r, c),
+                          u = `form[${FIELD_ID_FOR_EDIT}]`,
+                          d = parseFloat(p[u]) || 0,
+                          f = d,
+                          E = (function (t) {
+                            if (0 == ROUND) return parseInt(t);
+                            return Number.isInteger(t)
+                              ? t
+                              : parseFloat(t.toFixed(ROUND));
+                          })(d + parseFloat(n) * parseInt(o));
+                        p[u] = `${E}`;
+                        let h =
+                          '<table class="editOnFly_success" border="1" style="margin-top: 10px;"><tr><td>Тип операции:</td>' +
+                          `<td>${
+                            n > 0 ? "начисление (+" : "списание ("
+                          } ${parseFloat(n)})</td></tr>` +
+                          `<tr><td>Количество:</td><td>${o}</td></tr>` +
+                          `<tr><td>Было:</td><td>${f}</td></tr>` +
+                          `<tr><td>Стало:</td><td>${E}</td></tr></table>` +
+                          "<p>Новые значения будут видны после обновления страницы.</p>";
+                        (h += USE_WRAPPER
+                          ? "<p><strong>Оборачиваем сообщение.</strong></p>"
+                          : ""),
+                          history.replaceState(null, null, a),
+                          setTimeout(function () {
+                            history.replaceState(null, null, i);
+                          }, 1e3);
+                        let A = await e(a, p);
+                        if (!A)
+                          throw new Error(
+                            "Произошла ошибка при отправке данных."
+                          );
+                        if ((s.append($(h)), USE_WRAPPER)) {
+                          let n = "/edit.php?id=" + l,
+                            o = "#post",
+                            a = await t(n, r, o),
+                            c = "req_message",
+                            p = a[c],
+                            u = WRAPPER_START + p + WRAPPER_END;
+                          (u = u
+                            .replaceAll("{{CACHE_BEFORE}}", f)
+                            .replaceAll("{{CACHE_AFTER}}", E)
+                            .replaceAll(
+                              "{{ADMIN_NAME}}",
+                              ADMIN_NAMES[UserID] || UserLogin
+                            )),
+                            (a[c] = u),
+                            console.log(
+                              "getCurrentValueAndSetNew: обёрнутое сообщение",
+                              a
+                            );
+                          let d = "<p>Сообщение обёрнуто.</p>";
+                          history.replaceState(null, null, n),
+                            setTimeout(function () {
+                              history.replaceState(null, null, i);
+                            }, 1e3);
+                          let h = await e(n, a);
+                          if (!h)
+                            throw new Error(
+                              "Произошла ошибка при оборачивании сообщения."
+                            );
+                          s.append($(d));
+                        }
+                      } catch (t) {
+                        s.append($(`<p class="editOnFly_error">${t}</p>`));
+                      }
+                    })(n, o, s, i, l);
+                });
+            i.append(a, p, d, f), n.before(i), o++;
+          });
+        })();
+    } else $("#efof").remove();
+  });
+</script>

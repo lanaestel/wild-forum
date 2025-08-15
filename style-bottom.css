@@ -42,6 +42,173 @@
   font-weight: 400;
 }
 
+.news {
+  width: 260px;
+  height: 100px;
+  position: absolute;
+  z-index: 9000;
+  right: 170px;
+  top: 60px;
+  background: color-mix(
+    in srgb,
+    var(--common-secondary-color) 85%,
+    transparent
+  );
+  color: var(--main-color);
+  border-radius: 8px;
+}
+
+.animal {
+  background: url(https://forumstatic.ru/files/0012/04/67/88287.png) no-repeat;
+  width: 420px;
+  height: 150px;
+  position: absolute;
+  z-index: 9000;
+  right: 85px;
+  top: 40px;
+}
+
+#calendar2 {
+  display: none;
+  width: auto;
+  font: monospace;
+  line-height: 1em;
+  font-size: 15px;
+  text-align: center;
+  position: absolute;
+  top: -350%;
+  background: #7a8470;
+  padding: 15px !important;
+  z-index: 9;
+  right: 3%;
+  border-top: 10px solid #7a8470;
+  border-right: 15px solid #7a8470;
+  border-bottom: 15px solid #7a8470;
+  border-left: 15px solid #7a8470;
+}
+
+#calendar2 thead tr:last-child {
+  font-size: small;
+  color: rgb(85, 85, 85);
+}
+
+#calendar2 thead tr:nth-child(1) td:nth-child(2) {
+  color: rgb(50, 50, 50);
+}
+
+#calendar2 thead td {
+  margin-top: 5px;
+  width: 35px;
+  height: 30px;
+}
+
+#calendar2 thead tr {
+  margin-bottom: 3px !important;
+  margin-top: -10px !important;
+}
+
+#calendar2 tbody tr {
+  height: 12px !important;
+}
+
+#calendar2 tbody td {
+  border-left: 1px solid #7a8470 !important;
+  border-right: 1px solid #7a8470 !important;
+  border-top: 1px solid #7a8470 !important;
+  color: #57614c;
+  background: #a8b59b;
+  position: relative;
+  width: 35px;
+  height: 35px;
+}
+
+#calendar2 .holiday {
+  color: rgb(231, 140, 92);
+}
+
+#calendar2 .navigation {
+  width: 110px !important;
+  font-size: 12px;
+  height: 15px;
+  margin-top: 5px;
+  line-height: 10px;
+  text-align: center;
+  margin-left: -10px;
+}
+
+#calendar2 #toleft,
+#calendar2 #toright {
+  padding: 0 !important;
+  margin-top: 7px;
+  width: 20px !important;
+  height: 15px !important;
+}
+
+#calendar2 #toright {
+  margin-left: -10px;
+}
+/* Пустой день */
+#calendar2 td.pust {
+  background: transparent;
+  border: none !important;
+}
+
+/* Праздничный день */
+#calendar2 td.holiday {
+  background: #8ea073;
+}
+
+#calendar2 tbody td.today {
+  outline: 2px solid #5e6e4e;
+  border: 2px solid #bfc9b5 !important;
+  z-index: 1000;
+}
+
+.day_num {
+  position: absolute;
+  top: 2px;
+  left: 6px;
+  text-align: center;
+  color: #57614c;
+  font-size: 12.5px;
+}
+
+#calendar2 td.holiday .day_num {
+  cursor: pointer;
+  color: #555;
+  background: #ffe082;
+  border-radius: 50%;
+  border-color: #ff9800 !important;
+  border: 1px solid;
+  width: 18px;
+  height: 17px;
+}
+
+#calendar2 a {
+  background: none !important;
+}
+
+#imn img {
+  width: 28px !important;
+  height: 28px !important;
+}
+
+#toleft,
+#toright,
+#calendar2 thead tr:nth-child(1) td:nth-child(1):hover,
+#calendar2 thead tr:nth-child(1) td:nth-child(3):hover {
+  cursor: pointer;
+}
+
+/* Кнопки иконка календаря */
+#clndr {
+  position: absolute;
+  float: right;
+  top: -35px;
+  right: 5px;
+  cursor: pointer;
+}
+
 .topic h2,
 .modal-inner h2 {
   border: none;

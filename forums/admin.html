@@ -16,4 +16,275 @@
     • <a href="/pages/podschet_postov">посчитать посты</a> •
     <a href="/pages/opredelit_fludera">посчитать флуд</a>
   </div>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <table id="calendar2">
+      <thead>
+        <tr><td id="ext"><i class="material-icons" title="Закрыть">close</i></td><td id="toleft"><i class="material-icons" title="Предыдущий месяц">arrow_back_ios</i><td class="navigation" colspan="4"><td id="toright"><i class="material-icons" title="Следующий месяц">arrow_forward_ios</i>
+        <tr><td>Пн<td>Вт<td>Ср<td>Чт<td>Пт<td class="holiday">Сб<td class="holiday">Вс
+      <tbody>
+    </table>
+  <script>
+  // ======================
+  //  Конфигурация праздников
+  // ======================
+  var prazdnik = [
+    {dn: '01-01', celebrate: 'Новый год <br><img src="https://forumstatic.ru/files/0017/d8/50/25273.png">'},
+    {dn: '01-07', celebrate: 'Рождество Христово'},
+    {dn: '01-14', celebrate: 'Старый Новый год'},
+    {dn: '02-23', celebrate: 'День защитника Отечества <br><img src="https://forumstatic.ru/files/0017/d8/50/73171.png">'},
+    {dn: '03-08', celebrate: 'Международный женский день'},
+    {dn: '04-01', celebrate: 'День смеха (День дурака)'},
+    {dn: '04-12', celebrate: 'День космонавтики <br><img src="https://forumstatic.ru/files/0017/d8/50/22066.png">'},
+    {dn: '05-01', celebrate: 'День трудящихся <br><img src="https://forumstatic.ru/files/0017/d8/50/13433.png">'},
+    {dn: '05-09', celebrate: 'День Победы <br><img src="https://forumstatic.ru/files/0017/d8/50/77665.png">'},
+    {dn: '07-22', celebrate: 'День Рождения Вайлда'},
+    {dn: '11-07', celebrate: 'День Октябрьской Социалистической революции'}
+  ];
+
+  // ======================
+  //  Глобальные (минимум)
+  // ======================
+  var timon = null;   // текущий месяц (1–12), используется в запросе
+  var znak  = null;   // временно для знака зодиака
+
+  // Двузначное число
+  function twoDigits(t) { return (t <= 9 ? "0" + t : String(t)); }
+
+  // Знак зодиака
+  function zodiac(mz, den) {
+    switch (mz) {
+      case '01': return (den <= 19 ? 'Козерог' : 'Водолей');
+      case '02': return (den <= 18 ? 'Водолей' : 'Рыбы');
+      case '03': return (den <= 20 ? 'Рыбы' : 'Овен');
+      case '04': return (den <= 19 ? 'Овен' : 'Телец');
+      case '05': return (den <= 20 ? 'Телец' : 'Близнецы');
+      case '06': return (den <= 21 ? 'Близнецы' : 'Рак');
+      case '07': return (den <= 22 ? 'Рак' : 'Лев');
+      case '08': return (den <= 22 ? 'Лев' : 'Дева');
+      case '09': return (den <= 22 ? 'Дева' : 'Весы');
+      case '10': return (den <= 22 ? 'Весы' : 'Скорпион');
+      case '11': return (den <= 22 ? 'Скорпион' : 'Стрелец');
+      case '12': return (den <= 21 ? 'Стрелец' : 'Козерог');
+    }
+    return '';
+  }
+
+  // ======================
+  //  Построение календаря
+  //  year = 4-значный год
+  //  month = 0-based (0=январь)
+  // ======================
+  function Calendar2(id, year, month) {
+    var $tbl = $('#' + id);
+    if (!$tbl.length) return;
+
+    var Dlast   = new Date(year, month + 1, 0).getDate();
+    var D       = new Date(year, month, Dlast);
+    var DNlast  = new Date(D.getFullYear(), D.getMonth(), Dlast).getDay();
+    var DNfirst = new Date(D.getFullYear(), D.getMonth(), 1).getDay();
+    var monthNames = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+
+    // текущий месяц (1–12) для API
+    timon = parseInt(D.getMonth() + 1, 10);
+
+    var calendar = '<tr>';
+    // если 1-й день недели не понедельник, заполняем пустышками
+    if (DNfirst !== 0) {
+      for (var i = 1; i < DNfirst; i++) calendar += '<td class="pust">';
+    } else {
+      for (var i = 0; i < 6; i++) calendar += '<td class="pust">';
+    }
+
+    for (var day = 1; day <= Dlast; day++) {
+      if (
+        day === new Date().getDate() &&
+        D.getFullYear() === new Date().getFullYear() &&
+        D.getMonth() === new Date().getMonth()
+      ) {
+        calendar += '<td class="today"';
+      } else {
+        calendar += '<td';
+      }
+      calendar += ' data-iso="' + twoDigits(timon) + '-' + twoDigits(day) + '">';
+      calendar += '<div class="day_num">' + day + '</div>';
+      if (new Date(D.getFullYear(), D.getMonth(), day).getDay() === 0) calendar += '<tr>';
+    }
+
+    for (var k = DNlast; k < 7; k++) calendar += '<td class="pust">&nbsp;';
+
+    // вставляем тело
+    $tbl.find('tbody').html(calendar);
+
+    // шапка (название месяца / года + data-атрибуты)
+    $tbl.find('.navigation')
+      .html('<strong>' + monthNames[D.getMonth()] + ' ' + D.getFullYear() + '</strong>')
+      .attr('data-month', parseInt(D.getMonth() + 1, 10))
+      .attr('data-year',  D.getFullYear());
+  }
+
+  // ======================
+  //  Проставить праздники
+  // ======================
+  function markHolidays() {
+    for (var j = 0; j < prazdnik.length; j++) {
+      $('#calendar2 td[data-iso="' + prazdnik[j].dn + '"]')
+        .addClass('holiday')
+        .children('.day_num')
+        .attr('original-title', prazdnik[j].celebrate);
+    }
+  }
+
+  // ======================
+  //  Вставить пользователя в нужный день
+  // ======================
+  function appendUserToDay(user) {
+    var a     = user.avatar || '/i/default_avatar.jpg';
+    var uname = (user.username || '').replace(/\"/g, '');
+    var bdt   = user.birth_date || '';
+    if (!bdt) return;
+
+    // month/day извлекаем: ожидаемые форматы YYYY-MM-DD или MM-DD
+    var mz, den;
+    if (bdt.length === 10 && bdt.indexOf('-') > -1) {
+      var parts = bdt.split(/-/);
+      mz  = parts[1];
+      den = parts[2];
+    } else {
+      // fallback: последние 5 символов -MM-DD
+      mz  = bdt.slice(-5, -3);
+      den = bdt.slice(-2);
+    }
+
+    var znak = zodiac(mz, den);
+
+    var person =
+      '<a href="/profile.php?id=' + user.user_id + '" ' +
+      'style="display:inline;position:relative;text-decoration:none;">' +
+        '<img id="imn" src="' + a + '" ' +
+        'original-title="<figure><img src=' + a + '><figcaption><strong>' + uname + '</strong> ' +
+        '<br> Возраст: ' + (user.age != null ? user.age : '') +
+        ' <br> Знак: ' + znak + '</figcaption></figure>" ' +
+        'style="border-radius:50%; border:2px solid currentColor !important;">' +
+      '</a>';
+
+    $('#calendar2 td[data-iso="' + mz + '-' + den + '"]').append(person);
+  }
+
+  // ======================
+  //  Загрузка пользователей + праздники
+  // ======================
+  function vizov() {
+    // tooltips
+    $('#imn,.day_num').tipsy({
+      live: true,
+      gravity: 's',
+      fade: true,
+      html: true,
+      opacity: 1
+    });
+
+    var url = '/api.php?method=users.orderedList'
+            + '&sort_by=birthdate'
+            + '&limit=500'
+            + '&sort_dir=desc'
+            + '&fields=user_id,username,avatar,age,birth_date'
+            + '&birth_month=' + timon;
+
+    $.getJSON(url)
+      .done(function(data) {
+        // Попытка разных структур
+        var users = [];
+        if (data) {
+          if (data.response && Array.isArray(data.response.users)) {
+            users = data.response.users;
+          } else if (Array.isArray(data.users)) {
+            users = data.users;
+          } else if (data.result && Array.isArray(data.result.users)) {
+            users = data.result.users;
+          }
+        }
+
+        if (!users.length) {
+          console.warn('API не вернул пользователей для месяца', timon, data);
+        } else {
+          for (var i = 0; i < users.length; i++) appendUserToDay(users[i]);
+        }
+        markHolidays();
+      })
+      .fail(function(jqxhr, textStatus, error) {
+        console.error('Ошибка запроса календарных пользователей:', textStatus, error);
+        markHolidays();
+      });
+  }
+
+  // ======================
+  //  Вставка иконки календаря
+  // ======================
+  function insertCalendarIcon() {
+
+    var $target = $('#pun-status .container .item2'); // берём последний на случай нескольких
+  console.log('target');
+  console.log($target);
+    if ($target.length) {
+  console.log('if');
+      // если нужно обёртку, можно заменить строку ниже на <span class="calendar-trigger-wrap">...</span>
+      $target.after('<img id="clndr" src="https://forumstatic.ru/files/0012/04/67/83140.png" title="Календарь">');
+    } else {
+      // запасной вариант: в конец body
+      console.warn('Не найден .item2, иконка календаря добавлена в body.');
+      $('body').append('<img id="clndr" src="https://forumstatic.ru/files/0012/04/67/83140.png" title="Календарь" style="position:fixed;right:10px;top:10px;cursor:pointer;z-index:9999;">');
+    }
+  }
+
+  // ======================
+  //  Готовность DOM
+  // ======================
+  $(function() {
+
+    // Вставляем иконку
+    insertCalendarIcon();
+  console.log('insert');
+    // (опционально) переопределяем стили под инлайновое размещение после item2
+    var clndrCSS = '\
+      #clndr {\
+        position: relative;\
+        float: none;\
+        top: 0;\
+        margin-left: 6px;\
+        vertical-align: middle;\
+        cursor: pointer;\
+        width: 28px;\
+        height: 28px;\
+      }';
+    $('<style type="text/css">' + clndrCSS + '</style>').appendTo('head');
+
+    // Делегированные обработчики
+    $(document).on('click', '#clndr', function() {
+      Calendar2('calendar2', new Date().getFullYear(), new Date().getMonth());
+      vizov();
+      $('#calendar2').toggle();
+    });
+
+    $(document).on('click', '#ext', function() {
+      $('#calendar2').toggle();
+    });
+
+    $(document).on('click', '#calendar2 #toleft', function() {
+      var $nav   = $('#calendar2 .navigation');
+      var year   = parseInt($nav.attr('data-year'), 10);
+      var month1 = parseInt($nav.attr('data-month'), 10); // 1-based
+      Calendar2('calendar2', year, month1 - 2); // назад
+      vizov();
+    });
+
+    $(document).on('click', '#calendar2 #toright', function() {
+      var $nav   = $('#calendar2 .navigation');
+      var year   = parseInt($nav.attr('data-year'), 10);
+      var month1 = parseInt($nav.attr('data-month'), 10); // 1-based
+      Calendar2('calendar2', year, month1); // вперёд
+      vizov();
+    });
+  });
+  </script>
 </div>

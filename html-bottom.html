@@ -1,3 +1,28 @@
+<script type="text/javascript">
+  function showNoAccessMessage(title) {
+    var hSt = "<h1><span>Информация</span></h1>";
+    var hCn = '<div class="info"><div class="container">';
+    hCn += "Вы не имеете прав для доступа к этой теме.";
+    hCn += "</div></div>";
+    var crCnt = ' »&nbsp;<a href="/">' + title + "</a> »&nbsp;Информация";
+    document.title = title;
+    $("#pun-main").html(hSt + hCn);
+    $(".crumbs").html(crCnt);
+  }
+
+  function hideIfMarkedByClass(userArr) {
+    if ($.inArray(UserID, userArr) !== -1) {
+      if ($("#pun-viewtopic").length && $(".hide-topic").length > 0) {
+        var txt = $("#pun-title h1").text();
+        showNoAccessMessage(txt);
+      }
+    }
+  }
+
+  // Настрой пользователей, которым нельзя видеть темы с .hide-topic
+  hideIfMarkedByClass([9]);
+</script>
+
 <!--- new -->
 <script>
   $(".post-author").each(function () {
@@ -740,8 +765,9 @@
   document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
     const currentTopicId = Number(urlParams.get("id"));
-    const silentQuoteTopics = [1826];
-    const isSilent = silentQuoteTopics.includes(currentTopicId);
+    const titleSpan = document.querySelector("#pun-main h1 span");
+    const isSilent =
+      titleSpan && /^твиттер\s+#\d+$/i.test(titleSpan.textContent.trim());
 
     // Переопределяем поведение кнопки цитирования
     if (isSilent) {

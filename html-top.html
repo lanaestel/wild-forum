@@ -1,6 +1,34 @@
 <!-- Трекер эпизодов от Feathertail -->
 <script src="https://forumstatic.ru/files/001b/ec/ce/78718.js?v=2"></script>
 
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const imageUrls = [
+      "https://upforme.ru/uploads/0012/04/67/10/277066.jpg",
+      "https://upforme.ru/uploads/0012/04/67/10/378692.jpg",
+      "https://upforme.ru/uploads/0012/04/67/10/974657.jpg",
+    ];
+
+    const container = document.getElementsByClassName("announce-rotator")[0];
+    if (!container || imageUrls.length === 0) return;
+
+    // Выбираем случайный индекс
+    const randomIndex = Math.floor(Math.random() * imageUrls.length);
+    const selectedUrl = imageUrls[randomIndex];
+
+    const wrapper = document.createElement("div");
+    const img = document.createElement("img");
+
+    img.src = selectedUrl;
+    img.alt = "announcement";
+    img.style.maxWidth = "100%";
+    img.style.height = "auto";
+
+    wrapper.appendChild(img);
+    container.appendChild(wrapper);
+  });
+</script>
+
 <!---- theme selector with mobile/desktop switcher by g.vatueil START-->
 <style>
   @media (min-device-width: 768px) {

@@ -52,6 +52,13 @@
   margin: 0.7rem 0;
 }
 
+.announce-rotator {
+  width: 100px;
+  display: flex;
+  margin-top: -7rem;
+  margin-left: 40rem;
+}
+
 .punbb #pun-main .user-avatar {
   height: auto;
   align-items: center;

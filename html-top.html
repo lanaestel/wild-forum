@@ -28,6 +28,28 @@
       .catch((error) => console.error("Ошибка загрузки акций:", error));
   });
 </script>
+<!--Загрузка из файла и перемешивание баннеров-->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    fetch("https://forumstatic.ru/files/001b/ec/ce/81231.html?v=3")
+      .then((response) => response.arrayBuffer())
+      .then((buffer) => {
+        const decoder = new TextDecoder("windows-1251"); // или "utf-8", если нужно
+        const html = decoder.decode(buffer);
+        const container = document.querySelector(".banners-content");
+        container.innerHTML = html;
+
+        // 🔁 Перемешивание баннеров (исключая .static)
+        const $block = $(container);
+        const banners = $block.children("a").not(".static").toArray();
+
+        $(banners.sort(() => Math.random() - 0.5))
+          .appendTo($block)
+          .show();
+      })
+      .catch((error) => console.error("Ошибка загрузки баннеров:", error));
+  });
+</script>
 <!-- Трекер эпизодов от Feathertail -->
 <script src="https://forumstatic.ru/files/001b/ec/ce/78718.js?v=2"></script>
 

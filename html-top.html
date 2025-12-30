@@ -1,3 +1,55 @@
+<!--Загрузка из файла акций и их перемешивание-->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    fetch("https://forumstatic.ru/files/0012/04/67/10680.html?v=20")
+      .then((response) => response.arrayBuffer())
+      .then((buffer) => {
+        const decoder = new TextDecoder("windows-1251"); // или "utf-8" если нужно
+        const html = decoder.decode(buffer);
+
+        const container = document.querySelector(".act-content");
+        container.innerHTML = html;
+
+        // 🔁 После загрузки — перемешать и показать только 3
+        const $block = $(container);
+        const banners = $block
+          .find("a")
+          .toArray()
+          .sort(() => Math.random() - 0.5);
+
+        const visible = banners.slice(0, 4);
+        const hidden = banners.slice(4);
+
+        $block.empty();
+        $(visible).appendTo($block).show();
+        $(hidden).appendTo($block).hide();
+        $block.removeClass("hidden");
+      })
+      .catch((error) => console.error("Ошибка загрузки акций:", error));
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    fetch("https://forumstatic.ru/files/001b/ec/ce/81231.html?v=3")
+      .then((response) => response.arrayBuffer())
+      .then((buffer) => {
+        const decoder = new TextDecoder("windows-1251"); // или "utf-8", если нужно
+        const html = decoder.decode(buffer);
+        const container = document.querySelector(".banners-content");
+        container.innerHTML = html;
+
+        // 🔁 Перемешивание баннеров (исключая .static)
+        const $block = $(container);
+        const banners = $block.children("a").not(".static").toArray();
+
+        $(banners.sort(() => Math.random() - 0.5))
+          .appendTo($block)
+          .show();
+      })
+      .catch((error) => console.error("Ошибка загрузки баннеров:", error));
+  });
+</script>
 <style>
   .news {
     width: 260px;
@@ -682,3 +734,73 @@
   src="https://forumstatic.ru/files/001b/ec/ce/59078.js"
   charset="UTF-8"
 ></script>
+
+<!-- Стили для всплывающего окна -->
+<style type="text/css">
+  /* Определение шрифта Hello */
+  @font-face {
+    font-family: "Hello";
+    src: url("https://forumstatic.ru/files/0012/04/67/64167.eot?"),
+      url("https://forumstatic.ru/files/0012/04/67/88214.woff") format("woff"),
+      url("https://forumstatic.ru/files/0012/04/67/90287.ttf")
+        format("truetype"),
+      url("https://forumstatic.ru/files/0012/04/67/63566.svg#Hello")
+        format("svg");
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  .myPopupOverlay {
+    display: none; /* Скрыто по умолчанию */
+    /* Убраны position: fixed, top, left, width, height */
+    opacity: 1; /* Полностью видимо по умолчанию */
+    /* Плавный переход для opacity */
+    transition: opacity 2.5s ease-out; /* Изменено на 2.5s (fadeDurationMs в секундах) */
+  }
+
+  /* .myPopupContent теперь фиксирован на экране как "настоящее" всплывающее окно */
+  .myPopupContent {
+    position: fixed; /* Теперь фиксировано на экране */
+    top: 0; /* Изначально в верхнем левом углу */
+    left: 0; /* Изначально в верхнем левом углу */
+    width: 250px; /* Ширина изображения */
+    height: 200px; /* Высота изображения */
+    /* border: 1px solid #ccc;  Опциональная граница */
+    /* background-color: white;  Опциональный фон для изображения */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Легкая тень */
+    display: flex; /* Для центрирования изображения внутри */
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Обрезать, если изображение больше */
+    /* z-index для отображения поверх других элементов при необходимости */
+    z-index: 999999; /* ОЧЕНЬ высокий z-index для гарантии приоритета */
+  }
+
+  .myPopupImage {
+    width: auto; /* Ширина изменена на auto */
+    height: 100%; /* Высота остаётся 100% от .myPopupContent */
+    object-fit: contain; /* Изображение масштабируется, чтобы полностью поместиться внутрь, сохраняя пропорции */
+    opacity: 0.8;
+  }
+
+  /* Стили для "кнопки" закрытия - теперь это слово */
+  .myPopupCloseWord {
+    position: absolute;
+    cursor: pointer;
+    font-family: "Hello", "Century Gothic", sans-serif; /* Используем шрифт Hello, с fallback на Century Gothic */
+    font-size: 16px; /* Размер шрифта слова */
+    font-weight: bold; /* Жирность */
+    color: #ffffff; /* Цвет текста - белый */
+    /* background-color: transparent;  Прозрачный фон (по умолчанию, можно не указывать) */
+    /* padding: 4px 8px;  Убираем внутренние отступы */
+    /* border-radius: 4px;  Убираем скругление углов */
+    user-select: none; /* Запретить выделение текста */
+    z-index: 1000000; /* ЕЩЁ БОЛЕЕ высокий z-index для кнопки-слова */
+    /* Добавим небольшую тень для лучшей читаемости на разных фонах */
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);
+    /* Положение будет задаваться скриптом относительно .myPopupContent */
+    /* top/bottom/left/right будут управляться JS */
+    /* Плавный переход для opacity (если нужно) */
+    transition: opacity 0.5s ease-out; /* Быстрое исчезновение при клике */
+  }
+</style>
